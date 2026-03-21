@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+<div class="auth-wrapper" id="authWrapper">
+
+    <!-- Sign Up -->
+    <div class="auth-form-box register-form-box">
+        <form action="#" onsubmit="return false;">
+            <h1>Create Account</h1>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input id="code" type="text" placeholder="Code" required />
+            <input id="newUsername" type="text" placeholder="Username" required />
+            <input id="newPassword" type="password" placeholder="Password" required />
+            <button id="signup" type="submit">Sign Up</button>
+            <div class="mobile-switch">
+                <p>Already have an account?</p>
+                <button id="mobileLoginBtn">Sign In</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sign In -->
+    <div class="auth-form-box login-form-box">
+        <form action="#" onsubmit="return false;">
+            <h1>Sign In</h1>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input id="username" type="text" placeholder="Username" required />
+            <input id="password" type="password" placeholder="Password" required />
+            <a href="#">Forgot your password?</a>
+            <button id="signin" type="submit">Sign In</button>
+            <div class="mobile-switch">
+                <p>Don't have an account?</p>
+                <button id="mobileRegisterBtn">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="slide-panel-wrapper">
+        <div class="slide-panel">
+            <div class="panel-content panel-content-left">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue managing courses, students, and institute operations.</p>
+                <button class="transparent-btn" id="loginBtn">Sign In</button>
+            </div>
+
+            <div class="panel-content panel-content-right">
+                <h1>Get Started</h1>
+                <p>Create your account and begin using the Institute Management System today.</p>
+                <button class="transparent-btn" id="registerBtn">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+<script src="../js/login.js"></script>
+
+</body>
+
+</html>
