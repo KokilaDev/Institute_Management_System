@@ -2,9 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
 </head>
 <body>
+<div class="app">
+    <aside class="sidebar glass">
+        <div class="brand" style="padding:6px 8px 10px 8px;">
+            <div class="logo">NG</div><span>NextGen IT</span>
+        </div>
+        <nav class="nav">
+            <a href="../dashboards/admin-dashboard.html" data-route="dashboard" class="active">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+            <a href="" data-route="students">
+                <i class="fa-solid fa-user-graduate"></i> Students
+            </a>
+            <a href="" data-route="lecturers">
+                <i class="fa-solid fa-chalkboard-user"></i> Lecturers
+            </a>
+            <a href="" data-route="courses">
+                <i class="fa-solid fa-book"></i> Courses
+            </a>
+            <a href="" data-route="attendance">
+                <i class="fa-solid fa-calendar-check"></i> Attendance
+            </a>
+            <a href="" data-route="exams">
+                <i class="fa-solid fa-file-pen"></i> Exams
+            </a>
+            <a href="" data-route="payments">
+                <i class="fa-solid fa-credit-card"></i> Payments
+            </a>
+            <a href="" data-route="reports">
+                <i class="fa-solid fa-chart-pie"></i> Reports
+            </a>
+            <a href="" data-route="settings">
+                <i class="fa-solid fa-gear"></i> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content"></main>
+</div>
+
+<!-- ===== Config Panel ===== -->
+<div class="config">
+    <div class="panel card">
+        <h3 style="margin-bottom:6px;">Appearance</h3>
+        <div class="row">
+            <label class="pill"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="pill"><input type="radio" name="theme" value="neutral"> Default</label>
+            <label class="pill"><input type="radio" name="theme" value="dark"> Dark</label>
+        </div>
+        <div style="margin-top:12px;">
+            <label>Glass blur: <span class="muted">drag to taste</span></label>
+            <input id="blurRange" type="range" min="6" max="40" value="20" style="width:100%" />
+        </div>
+        <p class="muted" style="margin-top:8px;">Theme & blur are saved locally (localStorage).</p>
+    </div>
+    <button id="configToggle" class="fab" title="Theme & settings">⚙️</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="../../js/script.js"></script>
 
 </body>
 </html>

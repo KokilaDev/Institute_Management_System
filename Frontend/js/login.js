@@ -50,13 +50,13 @@ $('#signin').click(function () {
             localStorage.setItem('token', response.accessToken);
             alert("Successfully signed-in");
             if (role === "ADMIN") {
-                window.location.href = "../pages/dashboards/admin-dashboard.html";
+                window.location.href = "../pages/sidebar/admin-sidebar.html";
             } else if (role === "LECTURER") {
-                window.location.href = "../pages/dashboards/lecturer-dashboard.html";
+                window.location.href = "../pages/sidebar/lecturer-sidebar.html";
             } else if (role === "USER") {
-                window.location.href = "../pages/dashboards/user-dashboard.html";
+                window.location.href = "../pages/sidebar/user-sidebar.html";
             } else {
-                window.location.href = "../pages/dashboards/student-dashboard.html";
+                window.location.href = "../pages/sidebar/student-sidebar.html";
             }
         },
         error:function (error) {
