@@ -9,5 +9,5 @@ public interface StudentService {
     public void saveStudent(StudentDTO studentDTO);
 //    public void updateStudent(StudentDTO studentDTO);
 //    public void deleteStudent(String studentId);
-//    public List<StudentDTO> getAllStudents();
+    public List<StudentDTO> getAllStudents();
 }

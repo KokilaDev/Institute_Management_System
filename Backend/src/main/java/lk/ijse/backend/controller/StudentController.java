@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/student")
 @CrossOrigin
@@ -30,6 +32,14 @@ public class StudentController {
         return new ResponseEntity<>(new APIResponse(
                 200, "Student Saved", null
         ), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<APIResponse> getAllStudents() {
+        List<StudentDTO> studentDTOS = studentService.getAllStudents();
+        return new ResponseEntity<>(new APIResponse(
+                200, "Student Retrieved", studentDTOS
+        ), HttpStatus.OK);
     }
 
 }

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     loadNextStudentId();
     updateDate();
-    // getAllStudents();
+    getAllStudents();
 });
 
 function loadNextStudentId() {
@@ -34,6 +34,50 @@ function validate() {
         { element: $('#email'), regex: patterns.email },
     ];
     return validateForm(rules);
+}
+
+function getAllStudents() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/student/getAll",
+        method: "GET",
+        success: function (response) {
+            console.log("Server Response: ", response);
+
+            const students = response.data;
+            let tablebody = $('#student_table_body');
+            tablebody.empty();
+
+            students.forEach(student => {
+                let row = `<tr>
+                    <td>${student.studentId}</td>
+                    <td>${student.name}</td>
+                    <td>${student.address}</td>
+                    <td>${student.contact}</td>
+                    <td>${student.email}</td>
+                    <td>${student.registerDate}</td>
+                </tr>`;
+                tablebody.append(row);
+            });
+
+            $('#student_table_body tr').click(function () {
+                let selectedId = $(this).find('td:eq(0)').text();
+                let selectedName = $(this).find('td:eq(1)').text();
+                let selectedAddress = $(this).find('td:eq(2)').text();
+                let selectedContact = $(this).find('td:eq(3)').text();
+                let selectedEmail = $(this).find('td:eq(4)').text();
+                let selectedDate = $(this).find('td:eq(5)').text();
+
+                $('#studentId').text(selectedId);
+                $('#name').val(selectedName);
+                $('#address').val(selectedAddress);
+                $('#contact').val(selectedContact);
+                $('#email').val(selectedEmail);
+                $('#registerDate').text(selectedDate);
+
+                clearValidation();
+            })
+        }
+    })
 }
 
 $('#stu_save_btn').click(function () {
@@ -98,7 +142,7 @@ function saveStudent() {
                 timer: 1500,
                 timerProgressBar: true
             });
-            // getAllStudents();
+            getAllStudents();
             clearFields();
         },
         error: function (error) {

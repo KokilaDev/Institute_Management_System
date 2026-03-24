@@ -134,9 +134,16 @@ td {
     padding: 10px;
     text-align: left;
 }
+
 th {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
+}
+
+td {
+    font-size: 13px;
+    color: var(--muted-2);
+    font-weight: bold;
 }

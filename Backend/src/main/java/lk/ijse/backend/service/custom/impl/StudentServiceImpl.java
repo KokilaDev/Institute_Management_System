@@ -7,10 +7,12 @@ import lk.ijse.backend.repository.StudentRepository;
 import lk.ijse.backend.service.custom.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +54,11 @@ public class StudentServiceImpl implements StudentService {
         student.setRegisterDate(LocalDate.now());
 
         studentRepository.save(student);
+    }
+
+    @Override
+    public List<StudentDTO> getAllStudents() {
+        List<Student> students = studentRepository.findAll();
+        return modelMapper.map(students, new TypeToken<List<StudentDTO>>() {}.getType());
     }
 }
