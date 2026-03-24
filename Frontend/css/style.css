@@ -114,9 +114,10 @@ form.card{
     justify-content: space-between;
     gap: 10px;
 }
+
 .stat .num {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 24px;
+    font-weight: 500;
 }
 
 table {

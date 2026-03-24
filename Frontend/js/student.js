@@ -2,6 +2,7 @@ $(document).ready(function () {
     loadNextStudentId();
     updateDate();
     getAllStudents();
+    updateTotalStudents();
 });
 
 function loadNextStudentId() {
@@ -13,6 +14,21 @@ function loadNextStudentId() {
         },
         error: function (error) {
             console.error(error);
+        }
+    });
+}
+
+function updateTotalStudents() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/student/getAll",
+        method: "GET",
+        success: function (response) {
+            const total = response.data.length;
+            $('#totalStudents .num').text(total);
+        },
+        error: function (error) {
+            console.error("Failed to get total students:", error);
+            $('#totalStudents .num').text("0");
         }
     });
 }
