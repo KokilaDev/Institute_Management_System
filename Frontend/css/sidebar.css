@@ -112,6 +112,7 @@ main {
     border-radius: 16px;
     display: grid;
     place-items: center;
+    color: var(--text);
     border: 1px solid var(--border);
     background: var(--glass-strong);
     box-shadow: var(--shadow);

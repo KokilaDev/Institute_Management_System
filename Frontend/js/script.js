@@ -2,27 +2,27 @@ $(document).ready(function(){
 
     // ===== State =====
     const State = {
-        theme: localStorage.getItem("ngit:theme") || "neutral"
+        theme: localStorage.getItem("ngit:theme") || "light"
     };
 
-    // ===== Theme & Blur =====
+    // ===== Theme =====
     function setTheme(theme){
         $("body").attr("data-theme", theme);
         localStorage.setItem("ngit:theme", theme);
         State.theme = theme;
+
+        if(theme === "dark") {
+            $("#themeToggle").html('<i class="bi bi-sun"></i>');
+        } else {
+            $("#themeToggle").html('<i class="bi bi-moon"></i>');
+        }
     }
     setTheme(State.theme);
 
-    $('input[name="theme"]').change(function(){
-        setTheme(this.value);
+    $("#themeToggle").click(function(){
+        let newTheme = State.theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
     });
-
-    $("#blurRange").on("input", function(){
-        document.documentElement.style.setProperty("--blur", this.value + "px");
-    });
-
-    // ===== Config Panel Toggle =====
-    $("#configToggle").click(() => $(".config").toggleClass("open"));
 
     // Sidebar links click event
     $('.nav a').click(function(e) {

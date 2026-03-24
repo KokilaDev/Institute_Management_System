@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/base.css">
     <link rel="stylesheet" href="../../css/sidebar.css">
 </head>
@@ -42,27 +43,15 @@
                 <i class="fa-solid fa-gear"></i> Settings
             </a>
         </nav>
+
+        <div class="config">
+            <button id="themeToggle" class="fab theme-btn">
+                <i class="bi bi-moon"></i>
+            </button>
+        </div>
     </aside>
 
     <main class="main-content"></main>
-</div>
-
-<!-- ===== Config Panel ===== -->
-<div class="config">
-    <div class="panel card">
-        <h3 style="margin-bottom:6px;">Appearance</h3>
-        <div class="row">
-            <label class="pill"><input type="radio" name="theme" value="light"> Light</label>
-            <label class="pill"><input type="radio" name="theme" value="neutral"> Default</label>
-            <label class="pill"><input type="radio" name="theme" value="dark"> Dark</label>
-        </div>
-        <div style="margin-top:12px;">
-            <label>Glass blur: <span class="muted">drag to taste</span></label>
-            <input id="blurRange" type="range" min="6" max="40" value="20" style="width:100%" />
-        </div>
-        <p class="muted" style="margin-top:8px;">Theme & blur are saved locally (localStorage).</p>
-    </div>
-    <button id="configToggle" class="fab" title="Theme & settings">⚙️</button>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
