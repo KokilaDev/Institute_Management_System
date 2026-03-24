@@ -8,6 +8,6 @@ public interface LecturerService {
     public String generateLecturerId();
     public void saveLecturer(LecturerDTO lecturerDTO);
     public void updateLecturer(LecturerDTO lecturerDTO);
-//    public void deleteLecturer(String lecturerId);
+    public void deleteLecturer(String lecturerId);
     public List<LecturerDTO> getAllLecturers();
 }

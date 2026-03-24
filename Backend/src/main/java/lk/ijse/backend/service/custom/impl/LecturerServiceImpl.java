@@ -68,6 +68,11 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
+    public void deleteLecturer(String lecturerId) {
+        lecturerRepository.deleteById(lecturerId);
+    }
+
+    @Override
     public List<LecturerDTO> getAllLecturers() {
         List<Lecturer> lecturers = lecturerRepository.findAll();
         return modelMapper.map(lecturers, new TypeToken<List<LecturerDTO>>() {}.getType());

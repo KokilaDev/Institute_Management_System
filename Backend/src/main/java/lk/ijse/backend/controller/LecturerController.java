@@ -42,6 +42,14 @@ public class LecturerController {
         ), HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<APIResponse> deleteLecturer(@PathVariable String id) {
+        lecturerService.deleteLecturer(id);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Lecturer Deleted", null
+        ), HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<APIResponse> getAllLecturers() {
         List<LecturerDTO> lecturerDTOS = lecturerService.getAllLecturers();
