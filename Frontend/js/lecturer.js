@@ -176,6 +176,85 @@ function saveLecturer() {
     })
 }
 
+$('#lec_update_btn').click(function () {
+    updateLecturer();
+})
+
+function updateLecturer() {
+    let lecId = $('#lecturerId').text();
+    let lecName = $('#name').val();
+    let lecSpecialization = $('#specialization').val();
+    let lecContact = $('#contact').val();
+    let lecEmail = $('#email').val();
+    let lecDate = $('#registerDate').text();
+
+    if (!lecId) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please select a lecturer to update!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    if (!validate()) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please check your input fields!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    let lecturer = {
+        lecturerId: lecId,
+        name: lecName,
+        specialization: lecSpecialization,
+        contact: lecContact,
+        email: lecEmail,
+        registerDate: lecDate
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/lecturer/update",
+        method: "PUT",
+        data: JSON.stringify(lecturer),
+        contentType: "application/json",
+        success: function (response) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Lecturer updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+            });
+            getAllLecturers();
+            clearFields();
+        },
+        error: function (error) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: 'Failed to update lecturer!',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    })
+}
+
 function clearFields() {
     loadNextLecturerId()
     $('#name').val("");

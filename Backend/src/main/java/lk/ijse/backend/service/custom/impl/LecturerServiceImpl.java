@@ -57,6 +57,17 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
+    public void updateLecturer(LecturerDTO lecturerDTO) {
+        Lecturer existingLecturer = lecturerRepository
+                .findById(lecturerDTO.getLecturerId())
+                .orElseThrow(() -> new CustomException("Lecturer not found"));
+
+        modelMapper.map(lecturerDTO, existingLecturer);
+
+        lecturerRepository.save(existingLecturer);
+    }
+
+    @Override
     public List<LecturerDTO> getAllLecturers() {
         List<Lecturer> lecturers = lecturerRepository.findAll();
         return modelMapper.map(lecturers, new TypeToken<List<LecturerDTO>>() {}.getType());

@@ -34,6 +34,14 @@ public class LecturerController {
         ), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<APIResponse> updateLecturer(@RequestBody LecturerDTO lecturerDTO) {
+        lecturerService.updateLecturer(lecturerDTO);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Lecturer Updated", null
+        ), HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<APIResponse> getAllLecturers() {
         List<LecturerDTO> lecturerDTOS = lecturerService.getAllLecturers();
