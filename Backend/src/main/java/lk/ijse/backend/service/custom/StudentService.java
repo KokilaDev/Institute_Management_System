@@ -8,6 +8,6 @@ public interface StudentService {
     public String generateStudentId();
     public void saveStudent(StudentDTO studentDTO);
     public void updateStudent(StudentDTO studentDTO);
-//    public void deleteStudent(String studentId);
+    public void deleteStudent(String studentId);
     public List<StudentDTO> getAllStudents();
 }

@@ -42,6 +42,14 @@ public class StudentController {
         ), HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<APIResponse> deleteStudent(@PathVariable String id) {
+        studentService.deleteStudent(id);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Student Deleted", null
+        ), HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<APIResponse> getAllStudents() {
         List<StudentDTO> studentDTOS = studentService.getAllStudents();

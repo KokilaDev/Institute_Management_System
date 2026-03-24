@@ -239,6 +239,77 @@ function updateStudent() {
     })
 }
 
+$('#stu_delete_btn').click(function () {
+    deleteStudent();
+})
+
+function deleteStudent() {
+    let stuId = $('#studentId').text();
+
+    if (!stuId) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please select a student first.',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        focusCancel: true,
+        buttonsStyling: true,
+        customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-primary'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "http://localhost:8080/api/v1/student/delete/" + stuId,
+                method: "DELETE",
+                success: function (response) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Student deleted successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    getAllStudents();
+                    clearFields();
+                },
+                error: function (error) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to delete student!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            })
+        }
+    });
+}
+
+$('#stu_reset_btn').click(function () {
+    clearFields();
+})
+
 function clearFields() {
     loadNextStudentId();
     $('#name').val("");

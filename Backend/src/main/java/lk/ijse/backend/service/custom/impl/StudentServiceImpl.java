@@ -68,6 +68,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void deleteStudent(String studentId) {
+        studentRepository.deleteById(studentId);
+    }
+
+    @Override
     public List<StudentDTO> getAllStudents() {
         List<Student> students = studentRepository.findAll();
         return modelMapper.map(students, new TypeToken<List<StudentDTO>>() {}.getType());
