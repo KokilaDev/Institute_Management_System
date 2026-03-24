@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/lecturer")
 @CrossOrigin
@@ -30,6 +32,14 @@ public class LecturerController {
         return new ResponseEntity<>(new APIResponse(
                 200, "Lecturer Saved", null
         ), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<APIResponse> getAllLecturers() {
+        List<LecturerDTO> lecturerDTOS = lecturerService.getAllLecturers();
+        return new ResponseEntity<>(new APIResponse(
+                200, "Lecturer Retrieved", lecturerDTOS
+        ), HttpStatus.OK);
     }
 
 }

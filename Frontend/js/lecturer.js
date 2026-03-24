@@ -1,7 +1,7 @@
 $(document).ready(function () {
     loadNextLecturerId();
     updateDate();
-    // getAllLecturers();
+    getAllLecturers();
 });
 
 function loadNextLecturerId() {
@@ -33,6 +33,50 @@ function validate() {
         { element: $('#email'), regex: patterns.email },
     ];
     return validateForm(rules);
+}
+
+function getAllLecturers() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/lecturer/getAll",
+        method: "GET",
+        success: function(response) {
+            console.log("Server Response: ", response);
+
+            const lecturers = response.data;
+            let tablebody = $('#lecturer_table_body');
+            tablebody.empty();
+
+            lecturers.forEach(lecturer => {
+                let row = `<tr>
+                    <td>${lecturer.lecturerId}</td>
+                    <td>${lecturer.name}</td>
+                    <td>${lecturer.specialization}</td>
+                    <td>${lecturer.contact}</td>
+                    <td>${lecturer.email}</td>
+                    <td>${lecturer.registerDate}</td>
+                </tr>`;
+                tablebody.append(row);
+            });
+
+            $('#lecturer_table_body tr').click(function () {
+                let selectedId = $(this).find('td:eq(0)').text();
+                let selectedName = $(this).find('td:eq(1)').text();
+                let selectedSpecialization = $(this).find('td:eq(2)').text();
+                let selectedContact = $(this).find('td:eq(3)').text();
+                let selectedEmail = $(this).find('td:eq(4)').text();
+                let selectedDate = $(this).find('td:eq(5)').text();
+
+                $('#lecturerId').text(selectedId);
+                $('#name').val(selectedName);
+                $('#specialization').val(selectedSpecialization);
+                $('#contact').val(selectedContact);
+                $('#email').val(selectedEmail);
+                $('#registerDate').text(selectedDate);
+
+                clearValidation();
+            })
+        }
+    })
 }
 
 $('#lec_save_btn').click(function () {
@@ -97,7 +141,7 @@ function saveLecturer() {
                 timer: 1500,
                 timerProgressBar: true
             });
-            // getAllLecturers();
+            getAllLecturers();
             clearFields();
         },
         error: function (error) {

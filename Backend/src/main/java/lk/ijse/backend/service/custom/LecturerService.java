@@ -9,5 +9,5 @@ public interface LecturerService {
     public void saveLecturer(LecturerDTO lecturerDTO);
 //    public void updateLecturer(LecturerDTO lecturerDTO);
 //    public void deleteLecturer(String lecturerId);
-//    public List<LecturerDTO> getAllLecturers();
+    public List<LecturerDTO> getAllLecturers();
 }
