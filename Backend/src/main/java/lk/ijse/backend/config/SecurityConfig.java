@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-//                                .requestMatchers("/api/v1/student/**").permitAll()
+                                .requestMatchers("/api/v1/student/**").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(
