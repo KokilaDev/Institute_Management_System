@@ -38,7 +38,7 @@ $(document).ready(function(){
     });
 
     // Default page load: dashboard
-    $('.main-content').load('pages/dashboard.html');
+    $('.main-content').load('../dashboards/admin-dashboard.html');
 
     // ===== Hash Routing =====
     $(window).on("hashchange", function(){
