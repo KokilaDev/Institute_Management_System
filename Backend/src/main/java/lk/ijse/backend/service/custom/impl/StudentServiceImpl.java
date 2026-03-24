@@ -1,5 +1,8 @@
 package lk.ijse.backend.service.custom.impl;
 
+import lk.ijse.backend.dto.StudentDTO;
+import lk.ijse.backend.entity.Student;
+import lk.ijse.backend.exception.CustomException;
 import lk.ijse.backend.repository.StudentRepository;
 import lk.ijse.backend.service.custom.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +38,19 @@ public class StudentServiceImpl implements StudentService {
         }
         int nextNumber = lastNumber + 1;
         return "NGIT-STU-" + currentYear + "-" + String.format("%03d", nextNumber);
+    }
+
+    @Override
+    public void saveStudent(StudentDTO studentDTO) {
+        if (studentDTO == null) {
+            throw new CustomException("StudentDTO is null");
+        }
+        System.out.println("student saved " + studentDTO);
+        Student student = modelMapper.map(studentDTO, Student.class);
+
+        student.setStudentId(generateStudentId());
+        student.setRegisterDate(LocalDate.now());
+
+        studentRepository.save(student);
     }
 }

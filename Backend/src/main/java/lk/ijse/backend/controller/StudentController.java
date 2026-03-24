@@ -1,14 +1,12 @@
 package lk.ijse.backend.controller;
 
 import lk.ijse.backend.dto.APIResponse;
+import lk.ijse.backend.dto.StudentDTO;
 import lk.ijse.backend.service.custom.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/student")
@@ -23,6 +21,14 @@ public class StudentController {
         String newId = studentService.generateStudentId();
         return new ResponseEntity<>(new APIResponse(
                 200, "Success", newId
+        ), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<APIResponse> saveStudent(@RequestBody StudentDTO studentDTO) {
+        studentService.saveStudent(studentDTO);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Student Saved", null
         ), HttpStatus.CREATED);
     }
 
