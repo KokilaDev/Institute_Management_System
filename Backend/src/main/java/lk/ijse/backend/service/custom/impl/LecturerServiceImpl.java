@@ -1,5 +1,8 @@
 package lk.ijse.backend.service.custom.impl;
 
+import lk.ijse.backend.dto.LecturerDTO;
+import lk.ijse.backend.entity.Lecturer;
+import lk.ijse.backend.exception.CustomException;
 import lk.ijse.backend.repository.LecturerRepository;
 import lk.ijse.backend.service.custom.LecturerService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +38,19 @@ public class LecturerServiceImpl implements LecturerService {
         }
         int nextNumber = lastNumber + 1;
         return "NGIT-LEC-" + currentYear + "-" + String.format("%03d", nextNumber);
+    }
+
+    @Override
+    public void saveLecturer(LecturerDTO lecturerDTO) {
+        if (lecturerDTO == null) {
+            throw new CustomException("LecturerDTO is null");
+        }
+        System.out.println("lecturer saved " + lecturerDTO);
+        Lecturer lecturer = modelMapper.map(lecturerDTO, Lecturer.class);
+
+        lecturer.setLecturerId(generateLecturerId());
+        lecturer.setRegisterDate(LocalDate.now());
+
+        lecturerRepository.save(lecturer);
     }
 }
