@@ -30,9 +30,8 @@ body {
     --danger: #C40053;
 
     --bg: #f2f6fb;
-    --bg-card: rgba(255, 255, 255, 0.2);
-    --bg-elev: rgba(255, 255, 255, 0.75);
-    --bg-twel: rgba(255, 255, 255, 0.75);
+    --bg-card: rgba(255, 255, 255, 0.5);
+    --bg-elev: rgba(255, 255, 255, 0.55);
     --bg-before: rgba(255, 255, 255, 0.5);
     --text: #151a1f;
     --text-2: #f2f6fb;

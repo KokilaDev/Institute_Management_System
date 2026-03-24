@@ -95,7 +95,7 @@ main {
     z-index: 100;
 }
 .config .panel {
-    background: var(--bg-twel);
+    background: var(--bg-elev);
     display: none;
     position: absolute;
     right: 0;

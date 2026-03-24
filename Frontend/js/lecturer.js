@@ -2,6 +2,7 @@ $(document).ready(function () {
     loadNextLecturerId();
     updateDate();
     getAllLecturers();
+    updateTotalLecturers();
 });
 
 function loadNextLecturerId() {
@@ -13,6 +14,21 @@ function loadNextLecturerId() {
         },
         error: function (error) {
             console.error(error);
+        }
+    });
+}
+
+function updateTotalLecturers() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/lecturer/getAll",
+        method: "GET",
+        success: function (response) {
+            const total = response.data.length;
+            $('#totalLecturers .num').text(total);
+        },
+        error: function (error) {
+            console.error("Failed to get total lecturers:", error);
+            $('#totalLecturers .num').text("0");
         }
     });
 }
@@ -142,6 +158,7 @@ function saveLecturer() {
                 timerProgressBar: true
             });
             getAllLecturers();
+            updateTotalLecturers();
             clearFields();
         },
         error: function (error) {
