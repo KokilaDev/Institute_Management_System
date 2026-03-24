@@ -159,6 +159,7 @@ function saveStudent() {
                 timerProgressBar: true
             });
             getAllStudents();
+            updateTotalStudents();
             clearFields();
         },
         error: function (error) {
@@ -239,6 +240,7 @@ function updateStudent() {
                 timerProgressBar: true
             });
             getAllStudents();
+            updateTotalStudents();
             clearFields();
         },
         error: function (error) {
@@ -304,6 +306,7 @@ function deleteStudent() {
                         timerProgressBar: true
                     });
                     getAllStudents();
+                    updateTotalStudents();
                     clearFields();
                 },
                 error: function (error) {
