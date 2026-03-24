@@ -2,10 +2,10 @@
 
 .glass-card {
     font-size: 1.2rem;
-    background: var(--bg-card); /* semi-transparent */
+    background: var(--bg-card);
     border-radius: var(--radius);
     padding-left: 20px;
-    backdrop-filter: blur(var(--blur));       /* main blur effect */
+    backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
@@ -48,7 +48,6 @@ form.card{
     box-shadow: var(--shadow);
 }
 
-/* label */
 .form-label{
     display: block;
     margin-bottom: 6px;
@@ -62,7 +61,6 @@ form.card{
     padding-right: 10px;
 }
 
-/* input */
 .form-control{
     width: 100%;
     padding: 10px 12px;
@@ -79,7 +77,6 @@ form.card{
     box-shadow: 0 0 10px var(--bg-elev);
 }
 
-/* buttons section */
 .buttons{
     grid-column: span 2;
     display: flex;
@@ -88,7 +85,6 @@ form.card{
     justify-content: flex-end;
 }
 
-/* buttons */
 .btn{
     padding: 10px 16px;
     border: none;
@@ -123,7 +119,6 @@ form.card{
     font-weight: 800;
 }
 
-/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;

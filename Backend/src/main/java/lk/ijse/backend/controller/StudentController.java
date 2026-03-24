@@ -34,6 +34,14 @@ public class StudentController {
         ), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<APIResponse> updateStudent(@RequestBody StudentDTO studentDTO) {
+        studentService.updateStudent(studentDTO);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Student Updated", null
+        ), HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<APIResponse> getAllStudents() {
         List<StudentDTO> studentDTOS = studentService.getAllStudents();

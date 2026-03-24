@@ -160,6 +160,85 @@ function saveStudent() {
     })
 }
 
+$('#stu_update_btn').click(function () {
+    updateStudent();
+})
+
+function updateStudent() {
+    let stuId = $('#studentId').text();
+    let stuName = $('#name').val();
+    let stuAddress = $('#address').val();
+    let stuContact = $('#contact').val();
+    let stuEmail = $('#email').val();
+    let stuDate = $('#registerDate').text();
+
+    if (!stuId) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please select a student to update!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    if (!validate()) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please check your input fields!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    let student = {
+        studentId: stuId,
+        name: stuName,
+        address: stuAddress,
+        contact: stuContact,
+        email: stuEmail,
+        registerDate: stuDate
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/student/update",
+        method: "PUT",
+        data: JSON.stringify(student),
+        contentType: "application/json",
+        success: function (response) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Student updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+            });
+            getAllStudents();
+            clearFields();
+        },
+        error: function (error) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: 'Failed to update student!',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    })
+}
+
 function clearFields() {
     loadNextStudentId();
     $('#name').val("");

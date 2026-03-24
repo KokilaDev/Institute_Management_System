@@ -57,6 +57,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void updateStudent(StudentDTO studentDTO) {
+        Student existingStudent = studentRepository
+                .findById(studentDTO.getStudentId())
+                .orElseThrow(() -> new CustomException("Student not found"));
+
+        modelMapper.map(studentDTO, existingStudent);
+
+        studentRepository.save(existingStudent);
+    }
+
+    @Override
     public List<StudentDTO> getAllStudents() {
         List<Student> students = studentRepository.findAll();
         return modelMapper.map(students, new TypeToken<List<StudentDTO>>() {}.getType());
