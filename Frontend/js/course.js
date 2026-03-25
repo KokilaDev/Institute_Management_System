@@ -3,6 +3,7 @@ let courseID = null;
 $(document).ready(function () {
     getAllCourses();
     loadAllLecturers();
+    updateTotalCourses();
 });
 
 function validate() {
@@ -36,6 +37,21 @@ function loadAllLecturers() {
             console.error("Error loading lecturers", err);
         }
     });
+}
+
+function updateTotalCourses() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/course/getAll",
+        method: "GET",
+        success: function (response) {
+            const total = response.data.length;
+            $('#totalCourses .num').text(total);
+        },
+        error: function (error) {
+            console.log("Failed to get total courses:", error);
+            $('#totalCourses .num').text("0");
+        }
+    })
 }
 
 function getAllCourses() {
@@ -149,6 +165,7 @@ function saveCourse() {
                 timerProgressBar: true
             });
             getAllCourses();
+            updateTotalCourses();
             clearFields();
         },
         error: function (error) {
@@ -177,19 +194,6 @@ function updateCourse() {
             position: 'top-end',
             icon: 'warning',
             title: 'Please select a course to update!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
-
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true
@@ -230,6 +234,7 @@ function updateCourse() {
                 timerProgressBar: true
             });
             getAllCourses();
+            updateTotalCourses();
             clearFields();
         },
         error: function (error) {
@@ -293,6 +298,7 @@ function deleteCourse(courseId) {
                         timerProgressBar: true
                     });
                     getAllCourses();
+                    updateTotalCourses();
                     clearFields();
                 },
                 error: function (error) {
