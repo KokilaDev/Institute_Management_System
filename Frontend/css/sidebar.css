@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: 260px 1fr;
     min-height: 100vh;
-    grid-template-areas: "sidebar header" "sidebar main";
+    grid-template-areas: "sidebar main";
 }
 
 .brand {
@@ -64,9 +64,11 @@
     text-decoration: none;
 }
 
-main {
+.main-content {
     grid-area: main;
     padding: 16px;
+    margin: 0;
+    align-self: start;
 }
 
 .card {

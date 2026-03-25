@@ -2,9 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
+
+<section id="students" class="page">
+    <div class="glass-card">
+        <h1>Lecturers</h1>
+    </div>
+
+    <div class="grid cards">
+        <form class="card" style="grid-column: span 12; min-height: 300px;">
+            <div class="form-label id">
+                Lecturer ID : <span id="lecturerId"></span>
+            </div>
+            <div class="form-label">
+                Date : <span id="registerDate"></span>
+            </div>
+            <div>
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" name="name" id="name" class="form-control">
+            </div>
+            <div>
+                <label for="specialization" class="form-label">Specialization</label>
+                <input type="text" name="specialization" id="specialization" class="form-control">
+            </div>
+            <div>
+                <label for="contact" class="form-label">Contact No</label>
+                <input type="text" name="contact" id="contact" class="form-control">
+            </div>
+            <div>
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="email" id="email" class="form-control">
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn btn-primary" id="lec_update_btn">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                </button>
+                <button type="reset" class="btn btn-success" id="lec_reset_btn">
+                    <i class="fa-solid fa-xmark"></i> Cancel
+                </button>
+            </div>
+        </form>
+
+        <div class="card" style="grid-column: span 12;">
+            <table>
+                <thead>
+                <tr>
+                    <th>Lecturer ID</th>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Contact No</th>
+                    <th>Email</th>
+                    <th>Register Date</th>
+                </tr>
+                </thead>
+                <tbody id="lecturer_table_body"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="../../js/lecturer.js"></script>
+<script src="../../js/validation.js"></script>
 
 </body>
 </html>
