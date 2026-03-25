@@ -2,11 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
-<h1>User DashBoard</h1>
+<section id="dashboard" class="page">
+    <div class="glass-card">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="grid cards">
+        <div id="totalStudents" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Total Students</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Active</div>
+        </div>
+
+        <div id="totalCourses" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Total Courses</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Available</div>
+        </div>
+
+        <div id="upcomingExams" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Upcoming Exams</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Schedule</div>
+        </div>
+
+        <div class="card" style="grid-column: span 8; min-height: 300px;">
+            <h3>Payment trends</h3>
+            <div style="height: 240px">
+                <canvas id="paymentTrends"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 4; min-height: 300px;">
+            <h3>Attendance stats</h3>
+            <div style="max-width: 420px; margin:auto">
+                <canvas id="attendanceStats"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 12;">
+            <h3>Payment Records</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="paymentsTbody"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>
