@@ -2,11 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
-<h1>Student DashBoard</h1>
+<section id="dashboard" class="page">
+    <div class="glass-card">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="grid cards">
+        <div class="card" style="grid-column: span 12;">
+            <h3>Latest Grades</h3>
+        </div>
+
+        <div id="coursesEnrolled" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Courses Enrolled</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Enrolled</div>
+        </div>
+
+        <div id="pendingExams" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Pending Exams</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Pending</div>
+        </div>
+
+        <div id="pendingPayments" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Pending Payments</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Due</div>
+        </div>
+
+        <div class="card" style="grid-column: span 8; min-height: 300px;">
+            <h3>Upcoming Exams</h3>
+            <div style="height: 240px">
+                <canvas id="upcomingExams"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 4; min-height: 300px;">
+            <h3>Notifications</h3>
+            <div style="max-width: 420px; margin:auto">
+                <canvas id="notifications"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 8;">
+            <h3>My Enrolled Courses</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Lecturer</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="coursesTbody"></tbody>
+            </table>
+        </div>
+
+        <div class="card" style="grid-column: span 4;">
+            <h3>Payment History</h3>
+            <ul id="paymentHistory" style="margin: 0 0 0 18px; display:grid; gap:8px;"></ul>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>
