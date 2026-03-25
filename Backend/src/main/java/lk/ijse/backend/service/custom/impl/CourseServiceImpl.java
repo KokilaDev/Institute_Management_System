@@ -40,6 +40,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public void deleteCourse(Integer id) {
+        courseRepository.deleteById(id);
+    }
+
+    @Override
     public List<CourseDTO> getAllCourses() {
         List<Course> courses = courseRepository.findAll();
         return modelMapper.map(courses, new TypeToken<List<CourseDTO>>() {}.getType());

@@ -18,7 +18,7 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    @PostMapping("save")
+    @PostMapping("/save")
     public ResponseEntity<APIResponse> saveCourse(@RequestBody CourseDTO courseDTO) {
         courseService.saveCourse(courseDTO);
         return new ResponseEntity<>(new APIResponse(
@@ -26,11 +26,19 @@ public class CourseController {
         ), HttpStatus.CREATED);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<APIResponse> updateCourse(@RequestBody CourseDTO courseDTO) {
         courseService.updateCourse(courseDTO);
         return new ResponseEntity<>(new APIResponse(
                 200, "Course Updated", null
+        ), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<APIResponse> deleteCourse(@PathVariable Integer id) {
+        courseService.deleteCourse(id);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Course Deleted", null
         ), HttpStatus.OK);
     }
 

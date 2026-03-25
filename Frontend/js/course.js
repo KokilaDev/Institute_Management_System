@@ -246,6 +246,75 @@ function updateCourse() {
     })
 }
 
+$('#cou_delete_btn').click(function () {
+    deleteCourse(courseID);
+});
+
+function deleteCourse(courseId) {
+    if (!courseID) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please select a course first.',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        focusCancel: true,
+        buttonsStyling: true,
+        customClass: {
+            confirmButton: 'btn btn-danger custom-width',
+            cancelButton: 'btn btn-secondary'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "http://localhost:8080/api/v1/course/delete/" + courseId,
+                method: "DELETE",
+                success: function (response) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Course deleted successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    getAllCourses();
+                    clearFields();
+                },
+                error: function (error) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to delete course!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            })
+        }
+    });
+}
+
+$('#cou_reset_btn').click(function () {
+    clearFields();
+});
+
 function clearFields() {
     $('#name').val("");
     $('#duration').val("");
