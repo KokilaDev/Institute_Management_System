@@ -2,11 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lecturer</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
-<h1>Lecturer DashBoard</h1>
+<section id="dashboard" class="page">
+    <div class="glass-card">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="grid cards">
+        <div id="todayAttendance" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Today Attendance Count</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Present</div>
+        </div>
+
+        <div id="pendingExams" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Pending Exams</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Pending</div>
+        </div>
+
+        <div id="availableReports" class="card stat" style="grid-column: span 4;">
+            <div>
+                <div class="muted">Available Reports</div>
+                <div class="num">—</div>
+            </div>
+            <div class="pill">Updated</div>
+        </div>
+
+        <div class="card" style="grid-column: span 8; min-height: 300px;">
+            <h3>Attendance trends</h3>
+            <div style="height: 240px">
+                <canvas id="attendanceTrends"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 4; min-height: 300px;">
+            <h3>Exam scores</h3>
+            <div style="max-width: 420px; margin:auto">
+                <canvas id="examScores"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 12;">
+            <h3>Recent Students</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Contact No</th>
+                    <th>Email</th>
+                    <th>Register Date</th>
+                </tr>
+                </thead>
+                <tbody id="studentsTbody"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>
