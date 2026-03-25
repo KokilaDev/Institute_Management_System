@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/course")
@@ -22,6 +24,14 @@ public class CourseController {
         return new ResponseEntity<>(new APIResponse(
                 200, "Course Saved", null
         ), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<APIResponse> getAllCourses() {
+        List<CourseDTO> courseDTOS = courseService.getAllCourses();
+        return new ResponseEntity<>(new APIResponse(
+                200, "Course Retrieved", courseDTOS
+        ), HttpStatus.OK);
     }
 
 }

@@ -8,5 +8,5 @@ public interface CourseService {
     public void saveCourse(CourseDTO courseDTO);
 //    public void updateStudent(CourseDTO courseDTO);
 //    public void deleteStudent(String id);
-//    public List<CourseDTO> getAllStudents();
+    public List<CourseDTO> getAllCourses();
 }
