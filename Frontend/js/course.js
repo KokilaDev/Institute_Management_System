@@ -171,6 +171,32 @@ $('#cou_update_btn').click(function () {
 });
 
 function updateCourse() {
+    if (!courseID) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please select a course to update!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    if (!validate()) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please check your input fields!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
     let couName = $('#name').val();
     let couDuration = $('#duration').val();
     let couFee = $('#course_fee').val();
@@ -187,6 +213,37 @@ function updateCourse() {
         startDate: startDate,
         endDate: endDate
     };
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/course/update",
+        method: "PUT",
+        data: JSON.stringify(course),
+        contentType: "application/json",
+        success: function (response) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Course updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+            });
+            getAllCourses();
+            clearFields();
+        },
+        error: function (error) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: 'Failed to update course!',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    })
 }
 
 function clearFields() {

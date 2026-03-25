@@ -2,6 +2,7 @@ package lk.ijse.backend.service.custom.impl;
 
 import lk.ijse.backend.dto.CourseDTO;
 import lk.ijse.backend.entity.Course;
+import lk.ijse.backend.exception.CustomException;
 import lk.ijse.backend.repository.CourseRepository;
 import lk.ijse.backend.service.custom.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,15 @@ public class CourseServiceImpl implements CourseService {
         course.setLecturer(courseDTO.getLecturer());
         courseRepository.save(course);
         System.out.println("Course saved: " + course);
+    }
+
+    @Override
+    public void updateCourse(CourseDTO courseDTO) {
+        Course existingCourse = courseRepository
+                .findById(courseDTO.getCourseId())
+                .orElseThrow(() -> new CustomException("Course not found"));
+        modelMapper.map(courseDTO, existingCourse);
+        courseRepository.save(existingCourse);
     }
 
     @Override

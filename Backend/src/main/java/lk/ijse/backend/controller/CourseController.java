@@ -26,6 +26,14 @@ public class CourseController {
         ), HttpStatus.CREATED);
     }
 
+    @PutMapping("update")
+    public ResponseEntity<APIResponse> updateCourse(@RequestBody CourseDTO courseDTO) {
+        courseService.updateCourse(courseDTO);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Course Updated", null
+        ), HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<APIResponse> getAllCourses() {
         List<CourseDTO> courseDTOS = courseService.getAllCourses();
