@@ -12,6 +12,15 @@ public class CourseDTO {
     public CourseDTO() {
     }
 
+    public CourseDTO(String lecturer, double fee, String startDate, String duration, String courseName, Integer courseId) {
+        this.lecturer = lecturer;
+        this.fee = fee;
+        this.startDate = startDate;
+        this.duration = duration;
+        this.courseName = courseName;
+        this.courseId = courseId;
+    }
+
     public CourseDTO(Integer courseId, String courseName, String duration, double fee, String lecturer, String startDate, String endDate) {
         this.courseId = courseId;
         this.courseName = courseName;

@@ -4,6 +4,7 @@ $(document).ready(function () {
     getAllCourses();
     loadAllLecturers();
     updateTotalCourses();
+    loadCourseCards();
 });
 
 function validate() {
@@ -12,6 +13,40 @@ function validate() {
         { element: $('#course_fee'), regex: patterns.fee }
     ];
     return validateForm(rules);
+}
+
+function loadCourseCards() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/course/getAll',
+        method: 'GET',
+        success: function(response) {
+            console.log("Server Response:", response);
+
+            let courses = response.data;
+            $('#courseContainer').empty();
+
+            courses.forEach(function(course) {
+                let card = `
+                    <div class="card_container glass-card" style="grid-column: span 4;">
+                        <div class="card__header">
+                            <h1>${course.courseName}</h1>
+                            <h2>Lecturer: <span>${course.lecturer}</span></h2>
+                        </div>
+                        <div class="card__details">
+                            <div class="card__byline">Duration: ${course.duration}</div>
+                            <div class="card__byline">Fee: Rs.${course.fee}</div>
+                            <div class="card__byline">Start Date: ${course.startDate}</div>
+                            <button class="card__like">Enroll Now</button>
+                        </div>
+                    </div>
+                `;
+                $('#courseContainer').append(card);
+            });
+        },
+        error: function(err) {
+            console.error('Error fetching courses:', err);
+        }
+    });
 }
 
 function loadAllLecturers() {

@@ -49,4 +49,11 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courses = courseRepository.findAll();
         return modelMapper.map(courses, new TypeToken<List<CourseDTO>>() {}.getType());
     }
+
+    @Override
+    public CourseDTO getCourseById(Integer id) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new CustomException("Course not found"));
+        return modelMapper.map(course, CourseDTO.class);
+    }
 }

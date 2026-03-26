@@ -50,4 +50,12 @@ public class CourseController {
         ), HttpStatus.OK);
     }
 
+    @GetMapping("getAll/{id}")
+    public ResponseEntity<APIResponse> getCourseById(@PathVariable int id) {
+        CourseDTO courseDTO = courseService.getCourseById(id);
+        return new ResponseEntity<>(new APIResponse(
+                200, "Course Retrieved", courseDTO
+        ), HttpStatus.OK);
+    }
+
 }

@@ -9,4 +9,5 @@ public interface CourseService {
     public void updateCourse(CourseDTO courseDTO);
     public void deleteCourse(Integer id);
     public List<CourseDTO> getAllCourses();
+    public CourseDTO getCourseById(Integer id);
 }
