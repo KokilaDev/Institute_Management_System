@@ -7,6 +7,26 @@ $(document).ready(function () {
     loadCourseCards();
 });
 
+$(document).on('click', '.enroll-btn', function() {
+    // Get course info from data attributes
+    let courseId = $(this).data('id');
+    let courseName = $(this).data('name');
+    let courseFee = $(this).data('fee');
+
+    // Save data temporarily in sessionStorage
+    sessionStorage.setItem('enrollCourseId', courseId);
+    sessionStorage.setItem('enrollCourseName', courseName);
+    sessionStorage.setItem('enrollCourseFee', courseFee);
+
+    // Load enrollment.html into main-content
+    $('.main-content').load('../enrollment.html', function() {
+        // After load, fill the fields automatically
+        $('#courseName').val(sessionStorage.getItem('selectedCourseName'));
+        $('#fee').val(sessionStorage.getItem('selectedCourseFee'));
+        $('#enrollDate').text(sessionStorage.getItem('enrollDate'));
+    });
+});
+
 function validate() {
     const rules = [
         { element: $('#name'), regex: patterns.name },
@@ -30,13 +50,19 @@ function loadCourseCards() {
                     <div class="card_container glass-card" style="grid-column: span 4;">
                         <div class="card__header">
                             <h1>${course.courseName}</h1>
-                            <h2>Lecturer: <span>${course.lecturer}</span></h2>
+                            <h2>Lecturer: Prof.<span>${course.lecturer}</span></h2>
                         </div>
                         <div class="card__details">
                             <div class="card__byline">Duration: ${course.duration}</div>
                             <div class="card__byline">Fee: Rs.${course.fee}</div>
                             <div class="card__byline">Start Date: ${course.startDate}</div>
-                            <button class="card__like">Enroll Now</button>
+                            <button class="card__like enroll-btn"
+                                data-id="${course.courseId}"
+                                data-name="${course.courseName}"
+                                data-fee="${course.fee}"
+                            >
+                            Enroll Now
+                            </button>
                         </div>
                     </div>
                 `;
