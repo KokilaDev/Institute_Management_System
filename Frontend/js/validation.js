@@ -1,5 +1,7 @@
 // Regex patterns
 const patterns = {
+    studentId: /^NGIT-STU-\d{2}-\d{3}$/,
+    lecturerId: /^NGIT-LEC-\d{2}-\d{3}$/,
     name: /^[A-Za-z ]{3,}$/,
     address: /^[A-Za-z0-9,\/ ]{5,}$/,
     contact: /^0\d{9}$/,

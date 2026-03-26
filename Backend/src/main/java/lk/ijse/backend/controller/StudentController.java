@@ -58,4 +58,18 @@ public class StudentController {
         ), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse> getStudentById(@PathVariable String id) {
+        StudentDTO studentDTO = studentService.getStudentById(id); // service layer call
+        if (studentDTO != null) {
+            return new ResponseEntity<>(new APIResponse(
+                    200, "Student Found", studentDTO
+            ), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new APIResponse(
+                    404, "Student Not Found", null
+            ), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
