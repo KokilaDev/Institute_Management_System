@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +32,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment enrollment = modelMapper.map(enrollmentDTO, Enrollment.class);
         enrollment.setEnrollDate(LocalDate.now());
         enrollmentRepository.save(enrollment);
+    }
+
+    @Override
+    public List<EnrollmentDTO> getAllEnrollments() {
+        List<Enrollment> enrollmentList = enrollmentRepository.findAll();
+        return enrollmentList.stream().map(
+                enrollment -> modelMapper.map(enrollment, EnrollmentDTO.class)
+        ).toList();
     }
 }

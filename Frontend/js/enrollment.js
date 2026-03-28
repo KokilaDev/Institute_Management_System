@@ -2,6 +2,7 @@ let enrollmentId = null;
 
 $(document).ready(function() {
     updateFields();
+    getAllEnrollments();
 });
 
 function validate() {
@@ -149,6 +150,7 @@ function enrollCourses() {
                 timer: 1500,
                 timerProgressBar: true
             });
+            getAllEnrollments();
             clearFields();
         },
         error: function (error) {
@@ -168,6 +170,59 @@ function enrollCourses() {
 $('#cancel_btn').click(function () {
     clearFields();
 })
+
+function getAllEnrollments() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/enrollment/getAll",
+        method: "GET",
+        success: function (response) {
+            console.log("Server Response:", response);
+
+            const enrollments = response.data;
+            let tablebody = $('#enrollment_table_body');
+            tablebody.empty();
+
+            enrollments.forEach(enrollment => {
+                let row = `<tr>
+                    <td>${enrollment.enrollmentId}</td>
+                    <td>${enrollment.studentId}</td>
+                    <td>${enrollment.studentName}</td>
+                    <td>${enrollment.courseName}</td>
+                    <td>${enrollment.fee}</td>
+                    <td>${enrollment.paymentType}</td>
+                    <td>${enrollment.discount}</td>
+                    <td>${enrollment.total}</td>
+                    <td>${enrollment.enrollDate}</td>
+                </tr>`;
+                tablebody.append(row);
+            });
+
+            $('#enrollment_table_body tr').click(function () {
+                let selectedId = $(this).find('td:eq(0)').text();
+                let selectedStudentId = $(this).find('td:eq(1)').text();
+                let selectedStudentName = $(this).find('td:eq(2)').text();
+                let selectedCourseName = $(this).find('td:eq(3)').text();
+                let selectedFee = $(this).find('td:eq(4)').text();
+                let selectedPaymentType = $(this).find('td:eq(5)').text();
+                let selectedDiscount = $(this).find('td:eq(6)').text();
+                let selectedTotal = $(this).find('td:eq(7)').text();
+                let selectedDate = $(this).find('td:eq(8)').text();
+
+                enrollmentId = selectedId;
+                $('#studentId').val(selectedStudentId);
+                $('#name').val(selectedStudentName);
+                $('#courseName').val(selectedCourseName);
+                $('#fee').val(selectedFee);
+                $('#paymentType').val(selectedPaymentType);
+                $('#discount').val(selectedDiscount);
+                $('#total').val(selectedTotal);
+                $('#enrollDate').text(selectedDate);
+
+                clearValidation();
+            });
+        }
+    })
+}
 
 function clearFields() {
     $('#studentId').val("");
