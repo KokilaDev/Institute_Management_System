@@ -674,3 +674,44 @@ header section aside:nth-child(3){
         color:var(--white);
     }
 }
+
+.division_2{
+    margin-top:10rem;
+    align-items:center;
+    display:grid;
+    padding:0 4rem;
+}
+
+.division_2 .title_header{
+    width:100%;
+    text-align:left;
+}
+
+.division_2 .about-content {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.division_2 .flex_content:first-child{
+    background-color:#f4f4f4;
+}
+
+.division_2 .flex_content:last-child{
+    background-color:#ee4500;
+}
+
+.division_2 .title_header p, .division_2 .flex_content:first-child p {
+    color: var(--gray);
+}
+
+@media (max-width:920px){
+    .division_2{
+        margin-top:0rem;
+        display:block;
+        padding:1rem;
+    }
+
+    .division_2 .about-content {
+        grid-template-columns: 100%;
+    }
+}
