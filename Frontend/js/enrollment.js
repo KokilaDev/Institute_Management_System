@@ -1,3 +1,5 @@
+let enrollmentId = null;
+
 $(document).ready(function() {
     updateFields();
 });
@@ -41,6 +43,24 @@ function loadStudentName(studentId) {
         }
     });
 }
+
+$('#discount').on('input', function() {
+    calculateTotal();
+});
+
+function calculateTotal() {
+    let fee = parseFloat($('#fee').val()) || 0;
+    let discount = parseFloat($('#discount').val()) || 0;
+
+    let discountAmount = (fee * discount) / 100;
+    let total = fee - discountAmount;
+
+    $('#total').val(total.toFixed(2));
+}
+
+$('#enroll_btn').click(function () {
+
+})
 
 function clearFields() {
     $('#studentId').val("");

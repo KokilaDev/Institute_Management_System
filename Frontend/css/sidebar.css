@@ -96,18 +96,7 @@
     bottom: 16px;
     z-index: 100;
 }
-.config .panel {
-    background: var(--bg-elev);
-    display: none;
-    position: absolute;
-    right: 0;
-    bottom: 64px;
-    width: 320px;
-    padding: 12px;
-}
-.config.open .panel {
-    display: block;
-}
+
 .fab {
     width: 52px;
     height: 52px;
@@ -121,24 +110,24 @@
     cursor: pointer;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.row > * {
-    flex: 1 1 240px;
-}
+/*.row {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 12px;*/
+/*}*/
+/*.row > * {*/
+/*    flex: 1 1 240px;*/
+/*}*/
 
-.pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--glass);
-}
+/*.pill {*/
+/*    display: inline-flex;*/
+/*    align-items: center;*/
+/*    gap: 8px;*/
+/*    padding: 6px 10px;*/
+/*    border-radius: 999px;*/
+/*    border: 1px solid var(--border);*/
+/*    background: var(--glass);*/
+/*}*/
 .btn {
     display: inline-flex;
     align-items: center;

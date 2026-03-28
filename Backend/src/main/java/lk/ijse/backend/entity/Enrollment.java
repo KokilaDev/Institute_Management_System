@@ -3,6 +3,8 @@ package lk.ijse.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "enrollment")
 @Getter
@@ -34,5 +36,5 @@ public class Enrollment {
     private String paymentType;
 
     @Column(name = "enroll_date")
-    private String enrollDate;
+    private LocalDate enrollDate;
 }
