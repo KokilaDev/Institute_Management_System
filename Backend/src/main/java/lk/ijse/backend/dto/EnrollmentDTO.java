@@ -6,21 +6,23 @@ public class EnrollmentDTO {
     private String studentName;
     private String courseName;
     private double fee;
-    private double total;
     private String paymentType;
+    private int discount;
+    private double total;
     private String enrollDate;
 
     public EnrollmentDTO() {
     }
 
-    public EnrollmentDTO(Integer enrollmentId, String studentId, String studentName, String courseName, double fee, double total, String paymentType, String enrollDate) {
+    public EnrollmentDTO(Integer enrollmentId, String studentId, String studentName, String courseName, double fee, String paymentType, int discount, double total, String enrollDate) {
         this.enrollmentId = enrollmentId;
         this.studentId = studentId;
         this.studentName = studentName;
         this.courseName = courseName;
         this.fee = fee;
-        this.total = total;
         this.paymentType = paymentType;
+        this.total = total;
+        this.discount = discount;
         this.enrollDate = enrollDate;
     }
 
@@ -64,20 +66,28 @@ public class EnrollmentDTO {
         this.fee = fee;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
     public String getPaymentType() {
         return paymentType;
     }
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public String getEnrollDate() {

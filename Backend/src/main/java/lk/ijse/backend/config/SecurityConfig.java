@@ -32,6 +32,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/student/**").permitAll()
                                 .requestMatchers("/api/v1/lecturer/**").permitAll()
                                 .requestMatchers("/api/v1/course/**").permitAll()
+                                .requestMatchers("/api/v1/enrollment/**").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(

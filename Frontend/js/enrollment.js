@@ -4,6 +4,15 @@ $(document).ready(function() {
     updateFields();
 });
 
+function validate() {
+    const rules = [
+        { element: $('#studentId'), regex: patterns.studentId },
+        { element: $('#name'), regex: patterns.name },
+        { element: $('#paymentType'), regex: patterns.paymentType }
+    ];
+    return validateForm(rules);
+}
+
 function updateFields() {
     let courseName = sessionStorage.getItem('enrollCourseName');
     let courseFee = sessionStorage.getItem('enrollCourseFee');
@@ -44,6 +53,22 @@ function loadStudentName(studentId) {
     });
 }
 
+$("#paymentType").change(function() {
+    let paymentType = $(this).val();
+    if (paymentType === "full-cash") {
+        $("#discount").val(10);
+    } else if (paymentType === "full-card") {
+        $("#discount").val(8);
+    } else if (paymentType === "bank") {
+        $("#discount").val(5);
+    } else if (paymentType === "advance") {
+        $("#discount").val(3);
+    } else {
+        $("#discount").val(0);
+    }
+    calculateTotal();
+});
+
 $('#discount').on('input', function() {
     calculateTotal();
 });
@@ -59,7 +84,89 @@ function calculateTotal() {
 }
 
 $('#enroll_btn').click(function () {
+    enrollCourses();
+})
 
+function enrollCourses() {
+    if (!validate()) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please check your input fields!',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return;
+    }
+
+    let studentId = $('#studentId').val();
+    let studentName = $('#name').val();
+    let courseName = $('#courseName').val();
+    let fee = $('#fee').val();
+    let paymentType = $('#paymentType').val();
+    let discount = $('#discount').val();
+    let total = $('#total').val();
+    let date = $('#enrollDate').text();
+
+    let enrollment = {
+        studentId: studentId,
+        studentName: studentName,
+        courseName: courseName,
+        fee: fee,
+        paymentType: paymentType,
+        discount: discount,
+        total: total,
+        enrollDate: date
+    }
+
+    if (!studentId || !paymentType) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Please fill all fields!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        return;
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/enrollment/enroll",
+        method: "POST",
+        data: JSON.stringify(enrollment),
+        contentType: "application/json",
+        success: function (response) {
+            console.log(response);
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Enrollment successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+            });
+            clearFields();
+        },
+        error: function (error) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: 'Enrollment failed!',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    })
+}
+
+$('#cancel_btn').click(function () {
+    clearFields();
 })
 
 function clearFields() {
@@ -67,6 +174,7 @@ function clearFields() {
     $('#name').val("");
     $('#courseName').val("");
     $('#fee').val("");
+    $('#paymentType').val("");
     $('#discount').val("");
     $('#total').val("");
     clearValidation();
