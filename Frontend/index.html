@@ -31,9 +31,9 @@
         </figure>
     </section>
     <section class="flex_content nav_content" id="nav_content">
-        <a href="#" class="active">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">About us</a>
+        <a href="#home" class="active">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#about">About us</a>
         <a href="javascript:void(0)" class="contact_btn">Contact us</a>
     </section>
     <section class="flex_content">
@@ -64,7 +64,7 @@
 </menu>
 
 <!--HEADER-->
-<header class="flex">
+<header id="home" class="flex">
     <article>
         <h1 class="title big">Welcome to <br><em>NextGen</em> IT Institute</h1>
         <p>NextGen IT Institute is a modern technology training center focused on developing the next generation of IT professionals. We provide industry-focused courses in Software Development, Web Design, UI/UX, and Database Management.</p>
@@ -89,10 +89,14 @@
 <!--MAIN-->
 <main>
     <!--division_2-->
-    <div class="divisions division_2">
+    <div id="about" class="divisions division_2">
         <div class="title_header">
             <h2 class="title medium">About Us</h2>
-            <p>NextGen IT Institute is dedicated to providing quality tech education with practical hands-on training. We offer courses in web development, programming, design, and networking to help students grow their skills and advance their careers.</p>
+            <p>
+                NextGen IT Institute is dedicated to providing quality tech education with practical hands-on training.
+                We offer courses in web development, programming, design, and networking to help students grow their
+                skills and advance their careers.
+            </p>
         </div>
         <section class="about-content">
             <section class="flex_content padding_2x">
@@ -107,6 +111,108 @@
                     <p>To become a leading IT education institute recognized for quality learning and innovative teaching methods.</p>
                 </article>
             </section>
+        </section>
+    </div>
+    <!--division_3-->
+    <div id="courses" class="divisions division_3 padding_2x">
+        <section class="title_header">
+            <h1 class="title">Our Popular Courses</h1>
+            <p>Learn industry-ready IT skills with expert instructors</p>
+            <span class="bar"></span>
+        </section>
+        <section class="slider padding_0x">
+            <ul class="card logo-slider blog-slider">
+                <!-- Object-Oriented Programming -->
+                <li>
+                    <figure>
+                        <img src="assets/web.jpg" alt="OOP" loading="lazy" />
+                    </figure>
+                    <article class="padding_1x">
+                        <strong class="tag">Programming</strong>
+                        <a href="#" class="title small">Object-Oriented Programming</a>
+                        <p>Learn Java OOP concepts, classes, inheritance, polymorphism and real-world applications.</p>
+                        <aside class="fixed_flex">
+                            <span class="flex-content">
+                                <a href="#"><i class="fa fa-clock-o"></i> 5 Months</a>
+                                <a href="#"><i class="fa fa-calendar"></i> 2026-03-27</a>
+                            </span>
+                        </aside>
+                    </article>
+                </li>
+
+                <!-- Web Development -->
+                <li>
+                    <figure>
+                        <img src="assets/coding.jpg" alt="Web Development" loading="lazy" />
+                    </figure>
+                    <article class="padding_1x">
+                        <strong class="tag">Web</strong>
+                        <a href="#" class="title small">Web Development</a>
+                        <p>Learn HTML, CSS, JavaScript, React and build responsive modern websites.</p>
+                        <aside class="fixed_flex">
+                            <span class="flex-content">
+                                <a href="#"><i class="fa fa-clock-o"></i> 6 Months</a>
+                                <a href="#"><i class="fa fa-calendar"></i> 2026-04-01</a>
+                            </span>
+                        </aside>
+                    </article>
+                </li>
+
+                <!-- Database Systems -->
+                <li>
+                    <figure>
+                        <img src="assets/ui.jpg" alt="Database" loading="lazy" />
+                    </figure>
+                    <article class="padding_1x">
+                        <strong class="tag">Database</strong>
+                        <a href="#" class="title small">Database Systems</a>
+                        <p>Learn MySQL, database design, normalization and backend integration.</p>
+                        <aside class="fixed_flex">
+                            <span class="flex-content">
+                                <a href="#"><i class="fa fa-clock-o"></i> 4 Months</a>
+                                <a href="#"><i class="fa fa-calendar"></i> 2026-05-01</a>
+                            </span>
+                        </aside>
+                    </article>
+                </li>
+
+                <!-- Software Engineering -->
+                <li>
+                    <figure>
+                        <img src="assets/graphic.jpg" alt="Software Engineering" loading="lazy" />
+                    </figure>
+                    <article class="padding_1x">
+                        <strong class="tag">Software</strong>
+                        <a href="#" class="title small">Software Engineering</a>
+                        <p>Learn SDLC, Agile, UML diagrams and professional software development.</p>
+                        <aside class="fixed_flex">
+                            <span class="flex-content">
+                                <a href="#"><i class="fa fa-clock-o"></i> 5 Months</a>
+                                <a href="#"><i class="fa fa-calendar"></i> 2026-06-01</a>
+                            </span>
+                        </aside>
+                    </article>
+                </li>
+
+                <!-- Network Security -->
+                <li>
+                    <figure>
+                        <img src="assets/data.jpg" alt="Network Security" loading="lazy" />
+                    </figure>
+                    <article class="padding_1x">
+                        <strong class="tag">Security</strong>
+                        <a href="#" class="title small">Network Security</a>
+                        <p>Learn cybersecurity, ethical hacking and network protection techniques.</p>
+                        <aside class="fixed_flex">
+                            <span class="flex-content">
+                                <a href="#"><i class="fa fa-clock-o"></i> 3 Months</a>
+                                <a href="#"><i class="fa fa-calendar"></i> 2026-07-01</a>
+                            </span>
+                        </aside>
+                    </article>
+                </li>
+
+            </ul>
         </section>
     </div>
 </main>

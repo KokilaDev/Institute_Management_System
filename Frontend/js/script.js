@@ -1,7 +1,12 @@
-//Global variables
 var element;
 
-//Detect onclick event
+$(document).ready(function(){
+    $('.nav_content a').click(function(){
+        $('.nav_content a').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+
 if (window.matchMedia("(max-width: 920px)").matches === false) {
     $(".ham").on("click", function(){
         $(".side_menu").css("right", "0px");
