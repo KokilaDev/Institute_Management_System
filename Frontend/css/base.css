@@ -73,14 +73,12 @@ body {
 body {
     margin: 0;
     background: linear-gradient(135deg, var(--bg) 0%, #cfd7e2 100%) fixed;
-    background-image:
+    background:
             linear-gradient(
                     135deg,
-                    var(--primary),
-                    var(--secondary),
-                    var(--accent)
-            ),
-            url("https://images.unsplash.com/photo-1557683316-973673baf926");
+                    #002347,
+                    #3399ff
+            );
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

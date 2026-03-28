@@ -19,7 +19,6 @@
     --primary:linear-gradient(145deg,#002347,#3399ff);
     --primary_dark:#002347;
     --primary_lite:#3399ff;
-    --secondary:#3ab068;
     --default_font:'Mukta', sans-serif;
     --title_font:'Kanit', sans-serif;
 }
@@ -155,16 +154,6 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .btn_2{
-    background-color:#fdc632;
-    color:var(--dark) !important;
-}
-
-.btn_2:hover{
-    opacity:0.8;
-    color:var(--dark);
-}
-
-.btn_3{
     display:block;
     /*background-color:0;*/
     color:var(--white);
@@ -174,7 +163,7 @@ h1, h2, h3, h4, h5, h6{
     text-transform:uppercase;
 }
 
-.btn_3:before{
+.btn_2:before{
     content:"";
     border-radius:50%;
     background-color:rgba(255,255,255,0.2);
@@ -187,13 +176,13 @@ h1, h2, h3, h4, h5, h6{
     transform:translate(0%, -50%);
 }
 
-.btn_3:after{
+.btn_2:after{
     content:"\f178";
     font-family:"FontAwesome";
     margin-left:5px;
 }
 
-.btn_3:hover:before{
+.btn_2:hover:before{
     border-radius:40px;
     width:100%;
 }
