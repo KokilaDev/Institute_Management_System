@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5, h6{
 .btn{
     padding:1rem;
     border-radius:5px;
-    color:var(--white);
+    color:var(--white) !important;
     position:relative;
     border:0;
     text-align:center;
@@ -147,11 +147,11 @@ h1, h2, h3, h4, h5, h6{
 
 .btn_1{
     background:var(--primary_lite);
-    color:var(--dark) !important;
 }
 
 .btn_1:hover{
     opacity:0.8;
+    color:var(--white) !important;
 }
 
 .btn_2{
@@ -407,6 +407,18 @@ nav .ham{
 
 nav .ham:hover{
     border:2px solid var(--primary_lite);
+}
+
+nav .login {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    border:none;
+    /*width:40px;*/
+    height:40px;
+    float:right;
+    margin-right:0;
 }
 
 .top_menu{
