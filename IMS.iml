@@ -6,5 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="slick-carousel" level="application" />
+    <orderEntry type="library" name="html2pdf.js" level="application" />
   </component>
 </module>

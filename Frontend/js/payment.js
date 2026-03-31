@@ -183,13 +183,16 @@ function printReceipt(payment) {
         <body>
         <div class="receipt">
             <div class="header">
-                <div class="logo">NextGen IT Institute</div>
-                <p>Colombo, Sri Lanka</p>
+                <div class="logo-container">
+                    <img src="../../assets/logo.png" class="logo-img">
+                    <div class="logo-text">NextGen IT Institute</div>
+                    <p>Colombo, Sri Lanka</p>
+                </div>
             </div>
             <h3 style="text-align:center;">Payment Receipt</h3>
-            <p><strong>Student ID:</strong> ${payment.studentId}</p>
-            <p><strong>Student Name:</strong> ${payment.studentName}</p>
-            <p><strong>Course:</strong> ${payment.courseName}</p>
+            <p><strong>Student ID: </strong> ${payment.studentId}</p>
+            <p><strong>Student Name: </strong> ${payment.studentName}</p>
+            <p><strong>Course: </strong> ${payment.courseName}</p>
             <table>
                 <tr>
                     <th>Fee</th>
