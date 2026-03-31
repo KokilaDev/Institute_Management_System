@@ -111,18 +111,41 @@ function savePayment() {
                 fee: courseFee,
                 enrollDate: date
             }
+            enrollCourses(enrollment);
 
             Swal.fire({
                 toast: true,
                 position: 'top-end',
                 icon: 'success',
-                title: 'Payment successfully!',
+                title: 'Payment successful!',
                 showConfirmButton: false,
                 timer: 1500,
                 timerProgressBar: true
             }).then(() => {
-                enrollCourses(enrollment);
+                Swal.fire({
+                    title: "Do you want to print the receipt?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Print it!',
+                    cancelButtonText: 'No',
+                    focusCancel: true,
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        printReceipt(payment);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Receipt printed!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
             });
+
             clearFields();
         },
         error: function (error) {
@@ -148,4 +171,47 @@ function clearFields() {
     $('#discount').val("");
     $('#total').val("");
     clearValidation();
+}
+
+function printReceipt(payment) {
+    const receiptHTML = `
+        <html>
+        <head>
+            <title>Receipt</title>
+            <link rel="stylesheet" href="../../css/receipt.css">
+        </head>
+        <body>
+        <div class="receipt">
+            <div class="header">
+                <div class="logo">NextGen IT Institute</div>
+                <p>Colombo, Sri Lanka</p>
+            </div>
+            <h3 style="text-align:center;">Payment Receipt</h3>
+            <p><strong>Student ID:</strong> ${payment.studentId}</p>
+            <p><strong>Student Name:</strong> ${payment.studentName}</p>
+            <p><strong>Course:</strong> ${payment.courseName}</p>
+            <table>
+                <tr>
+                    <th>Fee</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>${payment.courseFee}</td>
+                    <td>${payment.discount}%</td>
+                    <td>${payment.totalAmount}</td>
+                </tr>
+            </table>
+            <div class="footer">
+                Thank you for your payment
+            </div>
+        </div>
+        </body>
+        </html>
+    `;
+
+    const newWin = window.open('', '_blank');
+    newWin.document.write(receiptHTML);
+    newWin.document.close();
+    newWin.print();
 }

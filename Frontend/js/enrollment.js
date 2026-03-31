@@ -77,18 +77,6 @@ export function enrollCourses(enrollment) {
     let fee = $('#fee').val();
     let date = $('#enrollDate').text();
 
-    if (!studentId) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please fill all fields!',
-            showConfirmButton: false,
-            timer: 1500
-        });
-        return;
-    }
-
     $.ajax({
         url: "http://localhost:8080/api/v1/enrollment/enroll",
         method: "POST",

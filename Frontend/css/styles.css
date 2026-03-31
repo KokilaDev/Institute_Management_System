@@ -104,6 +104,11 @@ form.card {
 .btn-danger{ background:var(--danger); color:white;}
 .btn-warning{ background:var(--warning); color:white;}
 
+.btn-success:hover { background:var(--success); color:white; opacity: 0.9; transform: translateY(-2px);}
+.btn-primary:hover { background:var(--primary); color:white; opacity: 0.9; transform: translateY(-2px);}
+.btn-danger:hover { background:var(--danger); color:white; opacity: 0.9; transform: translateY(-2px);}
+.btn-warning:hover { background:var(--warning); color:white; opacity: 0.9; transform: translateY(-2px);}
+
 .btn:hover {
     opacity: 0.9;
     transform: translateY(-2px);

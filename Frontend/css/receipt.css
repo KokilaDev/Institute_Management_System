@@ -1,0 +1,49 @@
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    padding:20px;
+}
+
+.receipt{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+.header{
+    text-align:center;
+    border-bottom:2px solid #002347;
+    padding-bottom:15px;
+    margin-bottom:20px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#002347;
+}
+
+table{
+    width:100%;
+    border-collapse: collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#002347;
+    color:white;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+}
