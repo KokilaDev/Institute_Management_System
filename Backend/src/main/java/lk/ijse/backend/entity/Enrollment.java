@@ -30,13 +30,6 @@ public class Enrollment {
 
     private double fee;
 
-    @Column(name = "payment_type")
-    private String paymentType;
-
-    private int discount;
-
-    private double total;
-
     @Column(name = "enroll_date")
     private LocalDate enrollDate;
 }

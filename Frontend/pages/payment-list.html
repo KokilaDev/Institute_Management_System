@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
+
+<section id="payment" class="page">
+    <div class="glass-card">
+        <h1>Payment</h1>
+    </div>
+
+    <div class="grid cards">
+        <div class="card" style="grid-column: span 12;">
+            <table>
+                <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Fee</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                    <th>Payment Type</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody id="payment_table_body"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="../../js/payment.js"></script>
+<script src="../../js/validation.js"></script>
 
 </body>
 </html>

@@ -47,6 +47,13 @@ form.card {
     box-shadow: var(--shadow);
 }
 
+.form-row{
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
 .form-label {
     display: block;
     margin-bottom: 6px;
@@ -102,6 +109,17 @@ form.card {
     transform: translateY(-2px);
 }
 
+#payment_btn {
+    width: 120px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
 .muted {
     color: var(--muted);
     font-size: 13px;
@@ -116,6 +134,16 @@ form.card {
 .stat .num {
     font-size: 28px;
     font-weight: 800;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--glass);
 }
 
 /* Tables */
