@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/payment")
 @CrossOrigin
@@ -21,6 +23,14 @@ public class PaymentController {
         paymentService.savePayment(paymentDTO);
         return new ResponseEntity<>(new APIResponse(
                 200, "Paid", null
+        ), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<APIResponse> getAllPayments() {
+        List<PaymentDTO> paymentDTOS = paymentService.getPayments();
+        return new ResponseEntity<>(new APIResponse(
+                200, "Payment Retrieved", paymentDTOS
         ), HttpStatus.OK);
     }
 }

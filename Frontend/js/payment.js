@@ -1,7 +1,10 @@
 import { enrollCourses } from './enrollment.js';
 
+let paymentId = null;
+
 $(document).ready(function () {
     loadPaymentData();
+    getAllPayments();
 });
 
 function validate() {
@@ -44,6 +47,59 @@ function calculateTotal() {
     let total = fee - discountAmount;
 
     $('#total').val(total.toFixed(2));
+}
+
+function getAllPayments() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/payment/getAll",
+        method: "GET",
+        success: function (response) {
+            console.log("Server Response:", response);
+
+            const payments = response.data;
+            let tablebody = $('#payment_table_body');
+            tablebody.empty();
+
+            payments.forEach(payment => {
+                let row = `<tr>
+                    <td>${payment.paymentId}</td>
+                    <td>${payment.studentId}</td>
+                    <td>${payment.studentName}</td>
+                    <td>${payment.courseName}</td>
+                    <td>${payment.courseFee}</td>
+                    <td>${payment.paymentType}</td>
+                    <td>${payment.discount}</td>
+                    <td>${payment.totalAmount}</td>
+                    <td>${payment.paymentDate}</td>
+                </tr>`;
+                tablebody.append(row);
+            });
+
+            $('#payment_table_body tr').click(function () {
+                let selectedPaymentId = $(this).find('td:eq(0)').text();
+                let selectedStudentId = $(this).find('td:eq(1)').text();
+                let selectedStudentName = $(this).find('td:eq(2)').text();
+                let selectedCourseName = $(this).find('td:eq(3)').text();
+                let selectedFee = $(this).find('td:eq(4)').text();
+                let selectedPaymentType = $(this).find('td:eq(5)').text();
+                let selectedDiscount = $(this).find('td:eq(6)').text();
+                let selectedTotal = $(this).find('td:eq(7)').text();
+                let selectedDate = $(this).find('td:eq(8)').text();
+
+                paymentId = selectedPaymentId;
+                $('#studentId').val(selectedStudentId);
+                $('#studentName').val(selectedStudentName);
+                $('#courseName').val(selectedCourseName);
+                $('#fee').val(selectedFee);
+                $('#paymentType').val(selectedPaymentType);
+                $('#discount').val(selectedDiscount);
+                $('#total').val(selectedTotal);
+                $('#paymentDate').text(selectedDate);
+
+                clearValidation();
+            });
+        }
+    })
 }
 
 $('#pay_btn').click(function () {
@@ -112,6 +168,7 @@ function savePayment() {
                 enrollDate: date
             }
             enrollCourses(enrollment);
+            getAllPayments();
 
             Swal.fire({
                 toast: true,
@@ -162,17 +219,6 @@ function savePayment() {
     })
 }
 
-function clearFields() {
-    $('#studentId').val("");
-    $('#studentName').val("");
-    $('#courseName').val("");
-    $('#fee').val("");
-    $('#paymentType').val("");
-    $('#discount').val("");
-    $('#total').val("");
-    clearValidation();
-}
-
 function printReceipt(payment) {
     const receiptHTML = `
         <html>
@@ -217,4 +263,15 @@ function printReceipt(payment) {
     newWin.document.write(receiptHTML);
     newWin.document.close();
     newWin.print();
+}
+
+function clearFields() {
+    $('#studentId').val("");
+    $('#studentName').val("");
+    $('#courseName').val("");
+    $('#fee').val("");
+    $('#paymentType').val("");
+    $('#discount').val("");
+    $('#total').val("");
+    clearValidation();
 }

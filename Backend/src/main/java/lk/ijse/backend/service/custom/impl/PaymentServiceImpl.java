@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,13 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = modelMapper.map(paymentDTO, Payment.class);
         payment.setPaymentDate(LocalDate.now());
         paymentRepository.save(payment);
+    }
+
+    @Override
+    public List<PaymentDTO> getPayments() {
+        List<Payment> paymentList = paymentRepository.findAll();
+        return paymentList.stream().map(
+                payment -> modelMapper.map(payment, PaymentDTO.class)
+        ).toList();
     }
 }
