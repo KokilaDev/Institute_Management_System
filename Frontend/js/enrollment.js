@@ -1,8 +1,10 @@
 let enrollmentId = null;
 
 $(document).ready(function() {
+    console.log($('#totalEnrollments .num').length);
     updateFields();
     getAllEnrollments();
+    updateTotalEnrollments();
 });
 
 function validate() {
@@ -95,6 +97,7 @@ export function enrollCourses(enrollment) {
             });
 
             getAllEnrollments();
+            updateTotalEnrollments();
             clearFields();
         },
         error: function (error) {
@@ -107,6 +110,21 @@ export function enrollCourses(enrollment) {
                 timer: 2000,
                 timerProgressBar: true
             });
+        }
+    })
+}
+
+function updateTotalEnrollments() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/enrollment/getAll",
+        method: "GET",
+        success: function (response) {
+            const total = response.data.length;
+            $('#totalEnrollments .num').text(total);
+        },
+        error: function (error) {
+            console.log("Failed to get total enrollments:", error);
+            $('#totalEnrollments .num').text("0");
         }
     })
 }

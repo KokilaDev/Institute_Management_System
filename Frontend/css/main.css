@@ -2,7 +2,7 @@
 
 .grid {
     display: grid;
-    gap: 50px;
+    gap: 20px 50px;
 }
 .cards {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -20,7 +20,7 @@
 
 .card h3 {
     margin: 0 0 8px;
-    font-size: 16px;
+    font-size: 22px;
     letter-spacing: 0.2px;
     color: var(--text-2);
 }

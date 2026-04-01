@@ -8,6 +8,7 @@ import lk.ijse.backend.repository.EnrollmentRepository;
 import lk.ijse.backend.service.custom.EnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +38,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     @Override
     public List<EnrollmentDTO> getAllEnrollments() {
         List<Enrollment> enrollmentList = enrollmentRepository.findAll();
-        return enrollmentList.stream().map(
-                enrollment -> modelMapper.map(enrollment, EnrollmentDTO.class)
-        ).toList();
+        return modelMapper.map(enrollmentList, new TypeToken<List<EnrollmentDTO>>() {}.getType());
     }
 }
