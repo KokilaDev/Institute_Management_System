@@ -10,35 +10,7 @@
 <body>
 
 <section id="dashboard" class="page">
-    <div class="glass-card">
-        <h1>Dashboard</h1>
-    </div>
-
     <div class="grid cards">
-        <div id="todayAttendance" class="card stat" style="grid-column: span 4;">
-            <div>
-                <div class="muted">Today Attendance Count</div>
-                <div class="num">—</div>
-            </div>
-            <div class="pill">Present</div>
-        </div>
-
-        <div id="pendingExams" class="card stat" style="grid-column: span 4;">
-            <div>
-                <div class="muted">Pending Exams</div>
-                <div class="num">—</div>
-            </div>
-            <div class="pill">Pending</div>
-        </div>
-
-        <div id="availableReports" class="card stat" style="grid-column: span 4;">
-            <div>
-                <div class="muted">Available Reports</div>
-                <div class="num">—</div>
-            </div>
-            <div class="pill">Updated</div>
-        </div>
-
         <div class="card" style="grid-column: span 8; min-height: 300px;">
             <h3>Attendance trends</h3>
             <div style="height: 240px">
@@ -52,25 +24,12 @@
                 <canvas id="examScores"></canvas>
             </div>
         </div>
-
-        <div class="card" style="grid-column: span 12;">
-            <h3>Recent Students</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Contact No</th>
-                    <th>Email</th>
-                    <th>Register Date</th>
-                </tr>
-                </thead>
-                <tbody id="studentsTbody"></tbody>
-            </table>
-        </div>
     </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../../js/sdashboard.js"></script>
 
 </body>
 </html>
