@@ -1,41 +1,21 @@
 var element;
 
 $(document).ready(function(){
-
-    // ===============================
-    // Navigation Click (Top + Side)
-    // ===============================
     $('.nav_content a, .side_menu a').click(function(e) {
-
         e.preventDefault();
-
         var page = $(this).attr('href');
-
         $('.main-content').load(page);
-
         $('.nav_content a, .side_menu a').removeClass('active');
         $(this).addClass('active');
-
-        // Close Side Menu (Mobile)
         $(".side_menu").css("right", "-120%");
         $(".overlay").css("opacity","0");
         $(".overlay").css("z-index","-1");
 
     });
-
-    // ===============================
-    // Default Page Load
-    // ===============================
-    $('.main-content').load('../dashboards/admin-dashboard.html');
-
+    $('.main-content').load('../dashboards/lecturer-dashboard.html');
 });
 
-
-// ===============================
-// Mobile Menu
-// ===============================
 if (window.matchMedia("(max-width: 920px)").matches === false) {
-
     $(".ham").on("click", function(){
         $(".side_menu").css("right", "0px");
         $(".overlay").css("opacity","1");
@@ -64,56 +44,32 @@ if (window.matchMedia("(max-width: 920px)").matches === false) {
 
 }
 
-
-// ===============================
-// Sticky Navbar
-// ===============================
 window.onscroll = function() {
-
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         $("nav").addClass("fixed_nav");
     } else {
         $("nav").removeClass("fixed_nav");
     }
-
 };
 
-
-// ===============================
-// ESC Key Close Menu
-// ===============================
 document.onkeydown = function(evt) {
-
     evt = evt || window.event;
-
     var isEscape = false;
-
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
     } else {
         isEscape = (evt.keyCode === 27);
     }
-
     if (isEscape) {
-
         if ($(".overlay").css("opacity") == "1"){
-
             $(".side_menu").css("right", "-120%");
             $(".overlay").css("opacity","0");
             $(".overlay").css("z-index","-1");
-
         }
-
     }
-
 };
 
-
-// ===============================
-// Dropdown
-// ===============================
 $(".dropdown").click(function(){
-
     if ($(this).children("aside").is(":hidden")){
         $(this).children("aside").show("slow");
         $(this).children("a").css("color","var(--white)");
@@ -121,94 +77,50 @@ $(".dropdown").click(function(){
         $(this).children("aside").hide("slow");
         $(this).children("a").css("color","var(--lite)");
     }
-
 });
 
-
-// ===============================
-// Slider Settings
-// ===============================
 var slidestoshow, arrowmark;
 
 if (window.matchMedia("(max-width: 920px)").matches === false) {
-
     slidestoshow = 4;
     arrowmark = true;
-
 } else {
-
     slidestoshow = 1;
     arrowmark = false;
-
 }
 
-
-// ===============================
-// Theme System
-// ===============================
 const State = {
     theme: localStorage.getItem("ngit:theme") || "light"
 };
 
 function setTheme(theme){
-
     $("body").attr("data-theme", theme);
-
     localStorage.setItem("ngit:theme", theme);
-
     State.theme = theme;
-
     if(theme === "dark") {
-
         $("#themeToggle").html('<i class="bi bi-sun"></i>');
-
     } else {
-
         $("#themeToggle").html('<i class="bi bi-moon"></i>');
-
     }
-
 }
-
 setTheme(State.theme);
 
-
 $("#themeToggle").click(function(){
-
     let newTheme = State.theme === "dark" ? "light" : "dark";
-
     setTheme(newTheme);
-
 });
 
-
-// ===============================
-// Hash Routing
-// ===============================
 $(window).on("hashchange", function(){
-
     const hash = location.hash.replace("#","") || "dashboard";
-
     $('.nav_content a, .side_menu a').each(function(){
-
         if($(this).attr("href").includes(hash)){
             $(this).click();
         }
-
     });
-
 });
 
-
-// ===============================
-// Initial Load
-// ===============================
 if(location.hash){
-
     $(window).trigger("hashchange");
-
 } else {
-
     location.hash = "#dashboard";
-
 }
