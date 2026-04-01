@@ -1,0 +1,54 @@
+@import url(base-styles.css);
+
+.grid {
+    display: grid;
+    gap: 50px;
+}
+.cards {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(calc(var(--blur) * 0.6));
+    -webkit-backdrop-filter: blur(calc(var(--blur) * 0.6));
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    color: var(--text-2);
+}
+
+.muted {
+    color: var(--text-2);
+    font-size: 13px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.stat .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--muted-2);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text-secondary-2);
+}

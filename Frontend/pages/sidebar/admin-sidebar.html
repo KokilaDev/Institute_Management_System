@@ -2,64 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>NextGen IT Institute</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo2.png">
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/base.css">
-    <link rel="stylesheet" href="../../css/sidebar.css">
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;400;500;600;700;800;900&family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!--PLUGIN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <!--CUSTOM CSS-->
+    <link rel="stylesheet" href="../../css/base-styles.css">
+    <link rel="stylesheet" href="../../css/home.css">
 </head>
 <body>
-<div class="app">
-    <aside class="sidebar glass">
-        <div class="brand" style="padding:6px 8px 10px 8px;">
-            <div class="logo"></div><span>NextGen IT</span>
-        </div>
-        <nav class="nav">
-            <a href="../dashboards/admin-dashboard.html" data-route="dashboard" class="active">
-                <i class="fa-solid fa-chart-line"></i> Dashboard
-            </a>
-            <a href="../students.html" data-route="students">
-                <i class="fa-solid fa-user-graduate"></i> Students
-            </a>
-            <a href="../lecturers.html" data-route="lecturers">
-                <i class="fa-solid fa-chalkboard-user"></i> Lecturers
-            </a>
-            <a href="../courses.html" data-route="courses">
-                <i class="fa-solid fa-book"></i> Courses
-            </a>
-            <a href="../enrollments-list.html" data-route="enrollments">
-                <i class="fa-solid fa-clipboard-list"></i> Enrollments
-            </a>
-            <a href="../attendance.html" data-route="attendance">
-                <i class="fa-solid fa-calendar-check"></i> Attendance
-            </a>
-            <a href="../exams.html" data-route="exams">
-                <i class="fa-solid fa-file-pen"></i> Exams
-            </a>
-            <a href="../payment-list.html" data-route="payments">
-                <i class="fa-solid fa-credit-card"></i> Payments
-            </a>
-            <a href="../reports.html" data-route="reports">
-                <i class="fa-solid fa-chart-pie"></i> Reports
-            </a>
-            <a href="../settings.html" data-route="settings">
-                <i class="fa-solid fa-gear"></i> Settings
-            </a>
-        </nav>
 
-        <div class="config">
-            <button id="themeToggle" class="fab theme-btn">
-                <i class="bi bi-moon"></i>
-            </button>
-        </div>
-    </aside>
+<nav>
+    <section class="flex_content">
+        <figure class="logo fixed_flex">
+            <img src="../../assets/logo.png" alt="NextGen">
+            <figcaption>
+                <strong class="title">NextGen</strong> IT Institute
+            </figcaption>
+        </figure>
+    </section>
+    <section class="flex_content nav_content" id="nav_content">
+        <a href="../dashboards/admin-dashboard.html" class="active">Home</a>
+        <a href="../students.html">Students</a>
+        <a href="../courses.html">Courses</a>
+        <a href="../enrollments-list.html">Enrollments</a>
+    </section>
+    <section class="flex_content">
+        <a href="javascript:void(0)" class="ham">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="javascript:void(0)" id="themeToggle" class="fab">
+            <i class="bi bi-moon"></i>
+        </a>
+    </section>
+</nav>
 
-    <main class="main-content"></main>
-</div>
+<menu id="menu" class="side_menu">
+    <a href="javascript:void(0)" class="close">
+        <i class="fa fa-times"></i>
+    </a>
+    <strong class="fixed_flex logo">
+        <img src="../../assets/logo2.png" alt="NextGen" loading="lazy" />
+    </strong>
+    <br>
+    <ul>
+        <li><a href="../dashboards/admin-dashboard.html">Home</a></li>
+        <li><a href="../students.html">Students</a></li>
+        <li><a href="../lecturers.html">Lecturers</a></li>
+        <li><a href="../courses.html">Courses</a></li>
+        <li><a href="../enrollments-list.html">Enrollments</a></li>
+        <li><a href="../attendance.html">Attendance</a></li>
+        <li><a href="../payment-list.html">Payments</a></li>
+        <li><a href="../settings.html">Settings</a></li>
+    </ul>
+</menu>
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="../../js/sidebar.js"></script>
+<main class="main-content"></main>
+
+<script src="../../js/home.js"></script>
 
 </body>
 </html>

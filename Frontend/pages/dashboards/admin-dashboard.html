@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../css/base.css">
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/base-styles.css">
+    <link rel="stylesheet" href="../../css/main.css">
 </head>
 <body>
 
 <section id="dashboard" class="page">
-    <div class="glass-card">
-        <h1>Dashboard</h1>
-    </div>
-
     <div class="grid cards">
         <div id="totalStudents" class="card stat" style="grid-column: span 3;">
             <div>
@@ -59,27 +55,6 @@
             <div style="max-width: 420px; margin:auto">
                 <canvas id="monthlyRevenue"></canvas>
             </div>
-        </div>
-
-        <div class="card" style="grid-column: span 8;">
-            <h3>Recent Students</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Course</th>
-                    <th>Contact</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody id="studentsTbody"></tbody>
-            </table>
-        </div>
-
-        <div class="card" style="grid-column: span 4;">
-            <h3>Upcoming Exams</h3>
-            <ul id="upcomingExams" style="margin: 0 0 0 18px; display:grid; gap:8px;"></ul>
         </div>
     </div>
 </section>
