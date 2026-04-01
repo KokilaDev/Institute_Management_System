@@ -112,7 +112,6 @@ function updateTotalCourses() {
     })
 }
 
-
 function updateTotalEnrollments() {
     $.ajax({
         url: "http://localhost:8080/api/v1/enrollment/getAll",
