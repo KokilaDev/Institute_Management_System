@@ -157,6 +157,7 @@ form.card {
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 th,
 td {
@@ -177,27 +178,51 @@ td {
     font-weight: bold;
 }
 
+/*table th:nth-child(3),*/
+/*table td:nth-child(3) {*/
+/*    width: 350px;*/
+/*}*/
+
+/*table td:nth-child(3) {*/
+/*    word-wrap: break-word;*/
+/*    white-space: normal;*/
+/*}*/
+
+table td:nth-child(3) {
+    width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*#courseContainer {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(4, 1fr);*/
+/*}*/
+
 .card_container {
+    grid-column: span 3;
     background: var(--card);
     display: flex;
     flex-direction: column;
-    max-width: 360px;
+    max-width: 300px;
     box-shadow: 0px 30px 60px -5px rgba(0, 0, 0, 0.2);
 }
 
 .card__header {
     padding: 20px;
+    margin-bottom: 10px;
 }
 
 .card__header h1 {
     margin: 0 0 10px;
-    font-size: 32px;
+    font-size: 28px;
     color: var(--primary);
 }
 
 .card__header h2 {
     margin: 0;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--secondary);
 }
@@ -213,6 +238,7 @@ td {
     align-items: start;
     background: var(--bg-card);
     margin-top: auto;
+    gap: 10px;
 }
 
 .card__byline {

@@ -767,6 +767,11 @@ header section aside:nth-child(3){
     line-height:1;
 }
 
+#courseSlider {
+    width: 100%;
+    max-width: 100%;
+}
+
 .card li {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -776,6 +781,17 @@ header section aside:nth-child(3){
     border-radius:5px;
     overflow:hidden;
     background-color:var(--white);
+    width: 100% !important;
+    max-width: 320px;
+    flex: 0 0 auto;
+}
+
+.slick-list {
+    overflow: hidden !important;
+}
+
+.slick-track {
+    display: flex !important;
 }
 
 .card p {

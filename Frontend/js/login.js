@@ -45,9 +45,15 @@ $('#signin').click(function () {
             password: password
         }),
         success: function(response) {
-            let role = (response.data?.role || response.role)?.trim().toUpperCase();
+            // let role = (response.data?.role || response.role)?.trim().toUpperCase();
+            let data = response.data;
+
+            let token = data.token;
+            let role = data.role?.trim().toUpperCase();
             console.log("ROLE:", role);
-            localStorage.setItem('token', response.accessToken);
+
+            localStorage.setItem('token',token);
+
             alert("Successfully signed-in");
             if (role === "ADMIN") {
                 window.location.href = "../pages/sidebar/admin-sidebar.html";
@@ -81,10 +87,17 @@ $('#signup').click(function () {
             code: code
         }),
         success: function(response) {
-            let role = (response.data?.role || "").trim().toUpperCase();
+            // let role = (response.data?.role || "").trim().toUpperCase();
+            let data = response.data;
+
+            let token = data.token;
+            let role = data.role?.trim().toUpperCase();
+
             console.log("ROLE:", role);
-            localStorage.setItem('token', response.data?.accessToken);
+            localStorage.setItem('token',token);
+
             alert("Signup Successful!");
+
             if (role === "ADMIN") {
                 window.location.href = "../pages/sidebar/admin-sidebar.html";
             } else if (role === "LECTURER") {

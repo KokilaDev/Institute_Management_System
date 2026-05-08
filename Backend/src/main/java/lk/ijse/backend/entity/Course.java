@@ -20,6 +20,9 @@ public class Course {
     @Column(nullable = false, length = 100)
     private String courseName;
 
+    @Column(name = "course_description")
+    private String courseDescription;
+
     @Column(length = 50)
     private String duration;
 

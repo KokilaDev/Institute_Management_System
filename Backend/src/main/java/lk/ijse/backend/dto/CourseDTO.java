@@ -3,6 +3,7 @@ package lk.ijse.backend.dto;
 public class CourseDTO {
     private Integer courseId;
     private String courseName;
+    private String courseDescription;
     private String duration;
     private double fee;
     private String lecturer;
@@ -12,18 +13,20 @@ public class CourseDTO {
     public CourseDTO() {
     }
 
-    public CourseDTO(String lecturer, double fee, String startDate, String duration, String courseName, Integer courseId) {
+    public CourseDTO(String lecturer, double fee, String startDate, String duration, String courseName, String courseDescription, Integer courseId) {
         this.lecturer = lecturer;
         this.fee = fee;
         this.startDate = startDate;
         this.duration = duration;
         this.courseName = courseName;
+        this.courseDescription = courseDescription;
         this.courseId = courseId;
     }
 
-    public CourseDTO(Integer courseId, String courseName, String duration, double fee, String lecturer, String startDate, String endDate) {
+    public CourseDTO(Integer courseId, String courseName, String courseDescription, String duration, double fee, String lecturer, String startDate, String endDate) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.courseDescription = courseDescription;
         this.duration = duration;
         this.fee = fee;
         this.lecturer = lecturer;
@@ -45,6 +48,14 @@ public class CourseDTO {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getCourseDescription() {
+        return courseDescription;
+    }
+
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
     }
 
     public String getDuration() {

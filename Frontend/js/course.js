@@ -47,12 +47,13 @@ function loadCourseCards() {
 
             courses.forEach(function(course) {
                 let card = `
-                    <div class="card_container glass-card" style="grid-column: span 4;">
+                    <div class="card_container glass-card">
                         <div class="card__header">
                             <h1>${course.courseName}</h1>
                             <h2>Lecturer: Prof.<span>${course.lecturer}</span></h2>
                         </div>
                         <div class="card__details">
+                            <div class="card__byline">${course.courseDescription}</div>
                             <div class="card__byline">Duration: ${course.duration}</div>
                             <div class="card__byline">Fee: Rs.${course.fee}</div>
                             <div class="card__byline">Start Date: ${course.startDate}</div>
@@ -131,6 +132,7 @@ function getAllCourses() {
                 let row = `<tr>
                     <td>${course.courseId}</td>
                     <td>${course.courseName}</td>
+                    <td>${course.courseDescription}</td>
                     <td>${course.duration}</td>
                     <td>${course.fee}</td>
                     <td>${course.lecturer}</td>
@@ -143,14 +145,16 @@ function getAllCourses() {
             $('#course_table_body tr').click(function () {
                 let selectedCourseId = $(this).find('td:eq(0)').text();
                 let selectedName = $(this).find('td:eq(1)').text();
-                let selectedDuration = $(this).find('td:eq(2)').text();
-                let selectedFee = $(this).find('td:eq(3)').text();
-                let selectedLecturer = $(this).find('td:eq(4)').text();
-                let selectedStartDate = $(this).find('td:eq(5)').text();
-                let selectedEndDate = $(this).find('td:eq(6)').text();
+                let selectedDescription = $(this).find('td:eq(2)').text();
+                let selectedDuration = $(this).find('td:eq(3)').text();
+                let selectedFee = $(this).find('td:eq(4)').text();
+                let selectedLecturer = $(this).find('td:eq(5)').text();
+                let selectedStartDate = $(this).find('td:eq(6)').text();
+                let selectedEndDate = $(this).find('td:eq(7)').text();
 
                 courseID = selectedCourseId;
                 $('#name').val(selectedName);
+                $('#description').val(selectedDescription);
                 $('#duration').val(selectedDuration);
                 $('#course_fee').val(selectedFee);
                 $('#lecturer').val(selectedLecturer);
@@ -182,6 +186,7 @@ function saveCourse() {
     }
 
     let couName = $('#name').val();
+    let coudescription = $('#description').val();
     let couDuration = $('#duration').val();
     let couFee = $('#course_fee').val();
     let lecturer = $('#lecturer').val();
@@ -190,6 +195,7 @@ function saveCourse() {
 
     let course = {
         courseName: couName,
+        courseDescription: coudescription,
         duration: couDuration,
         fee: couFee,
         lecturer: lecturer,
@@ -263,6 +269,7 @@ function updateCourse() {
     }
 
     let couName = $('#name').val();
+    let coudescription = $('#description').val();
     let couDuration = $('#duration').val();
     let couFee = $('#course_fee').val();
     let lecturer = $('#lecturer').val();
@@ -272,6 +279,7 @@ function updateCourse() {
     let course = {
         courseId: courseID,
         courseName: couName,
+        courseDescription: coudescription,
         duration: couDuration,
         fee: couFee,
         lecturer: lecturer,
@@ -285,6 +293,7 @@ function updateCourse() {
         data: JSON.stringify(course),
         contentType: "application/json",
         success: function (response) {
+            console.log(response.data);
             Swal.fire({
                 toast: true,
                 position: 'top-end',
@@ -299,6 +308,7 @@ function updateCourse() {
             clearFields();
         },
         error: function (error) {
+            console.log(error.responseText);
             Swal.fire({
                 toast: true,
                 position: 'top-end',
@@ -384,6 +394,7 @@ $('#cou_reset_btn').click(function () {
 
 function clearFields() {
     $('#name').val("");
+    $('#description').val("");
     $('#duration').val("");
     $('#course_fee').val("");
     $('#lecturer').val("");
