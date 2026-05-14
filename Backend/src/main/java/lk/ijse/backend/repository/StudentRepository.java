@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
 
-    @Query(value = "SELECT student_id FROM students ORDER BY student_id DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT student_id FROM student ORDER BY student_id DESC LIMIT 1", nativeQuery = true)
     String findLastStudentId();
 
 }

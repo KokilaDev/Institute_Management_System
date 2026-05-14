@@ -1,9 +1,40 @@
-$(document).ready(function () {
+let lecturerModuleLoaded = false;
+
+function loadLecturerModule() {
+    if (lecturerModuleLoaded) return;
+    lecturerModuleLoaded = true;
+
+    console.log("Lecturer module loaded");
+
     loadNextLecturerId();
     updateDate();
     getAllLecturers();
     updateTotalLecturers();
-});
+
+    bindLecturerEvents();
+    bindLecturerTableEvents();
+}
+
+function bindLecturerEvents() {
+    $(document).off("click", "#lec_save_btn").on("click", "#lec_save_btn", function () {
+        saveLecturer();
+        clearFields();
+    });
+
+    $(document).off("click", "#lec_update_btn").on("click", "#lec_update_btn", function () {
+        updateLecturer();
+        clearFields();
+    });
+
+    $(document).off("click", "#lec_delete_btn").on("click", "#lec_delete_btn", function () {
+        deleteLecturer();
+        clearFields();
+    });
+
+    $(document).off("click", "#lec_reset_btn").on("click", "#lec_reset_btn", function () {
+        clearFields();
+    });
+}
 
 function loadNextLecturerId() {
     $.ajax({
@@ -43,6 +74,11 @@ function updateDate() {
 }
 
 function validate() {
+    if (typeof patterns === "undefined" || typeof validateForm === "undefined") {
+        console.error("validation.js NOT loaded");
+        return false;
+    }
+
     const rules = [
         { element: $('#name'), regex: patterns.name },
         { element: $('#contact'), regex: patterns.contact },
@@ -73,52 +109,49 @@ function getAllLecturers() {
                 </tr>`;
                 tablebody.append(row);
             });
-
-            $('#lecturer_table_body tr').click(function () {
-                let selectedId = $(this).find('td:eq(0)').text();
-                let selectedName = $(this).find('td:eq(1)').text();
-                let selectedSpecialization = $(this).find('td:eq(2)').text();
-                let selectedContact = $(this).find('td:eq(3)').text();
-                let selectedEmail = $(this).find('td:eq(4)').text();
-                let selectedDate = $(this).find('td:eq(5)').text();
-
-                $('#lecturerId').text(selectedId);
-                $('#name').val(selectedName);
-                $('#specialization').val(selectedSpecialization);
-                $('#contact').val(selectedContact);
-                $('#email').val(selectedEmail);
-                $('#registerDate').text(selectedDate);
-
-                clearValidation();
-            })
+            bindLecturerTableEvents();
         }
     })
 }
 
-$('#lec_save_btn').click(function () {
-    saveLecturer();
-});
+function bindLecturerTableEvents() {
+    $(document)
+        .off("click", "#lecturer_table_body tr")
+        .on("click", "#lecturer_table_body tr", function () {
+
+            $('#lecturerId').text($(this).children("td").eq(0).text());
+            $('#name').val($(this).children("td").eq(1).text());
+            $('#specialization').val($(this).children("td").eq(2).text());
+            $('#contact').val($(this).children("td").eq(3).text());
+            $('#email').val($(this).children("td").eq(4).text());
+            $('#registerDate').text($(this).children("td").eq(5).text());
+
+            clearValidation();
+        });
+}
 
 function saveLecturer() {
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
 
     let lecId = $('#lecturerId').text();
     let lecName = $('#name').val();
     let lecSpecialization = $('#specialization').val();
     let lecContact = $('#contact').val();
     let lecEmail = $('#email').val();
-    let date = $('#registerDate').val();
+    let date = $('#registerDate').text();
+
+    console.log(lecName, lecSpecialization, lecContact, lecEmail);
 
     let lecturer = {
         lecturerId: lecId,
@@ -157,9 +190,9 @@ function saveLecturer() {
                 timer: 1500,
                 timerProgressBar: true
             });
+            clearFields();
             getAllLecturers();
             updateTotalLecturers();
-            clearFields();
         },
         error: function (error) {
             console.log(error.responseJSON);
@@ -175,10 +208,6 @@ function saveLecturer() {
         }
     })
 }
-
-$('#lec_update_btn').click(function () {
-    updateLecturer();
-})
 
 function updateLecturer() {
     let lecId = $('#lecturerId').text();
@@ -201,18 +230,18 @@ function updateLecturer() {
         return;
     }
 
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
 
     let lecturer = {
         lecturerId: lecId,
@@ -254,10 +283,6 @@ function updateLecturer() {
         }
     })
 }
-
-$('#lec_delete_btn').click(function () {
-    deleteLecturer();
-})
 
 function deleteLecturer() {
     let lecId = $('#lecturerId').text();
@@ -322,16 +347,20 @@ function deleteLecturer() {
     });
 }
 
-$('#lec_reset_btn').click(function () {
-    clearFields();
-})
-
 function clearFields() {
-    loadNextLecturerId()
+    console.log("clearFields called");
+
     $('#name').val("");
     $('#specialization').val("");
     $('#contact').val("");
     $('#email').val("");
+    $('#lecturerId').text("");
+    $('#registerDate').text("");
+
+    if (typeof clearValidation === "function") {
+        clearValidation();
+    }
+
+    loadNextLecturerId();
     updateDate();
-    clearValidation();
 }

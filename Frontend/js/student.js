@@ -1,9 +1,38 @@
-$(document).ready(function () {
+let studentModuleLoaded = false;
+
+function loadStudentModule() {
+
+    if (studentModuleLoaded) return;
+    studentModuleLoaded = true;
+
+    console.log("Student module loaded");
+
     loadNextStudentId();
     updateDate();
     getAllStudents();
     updateTotalStudents();
-});
+
+    bindStudentEvents();
+    bindStudentTableEvents();
+}
+
+function bindStudentEvents() {
+    $(document).off("click", "#stu_save_btn").on("click", "#stu_save_btn", function () {
+        saveStudent();
+    });
+
+    $(document).off("click", "#stu_update_btn").on("click", "#stu_update_btn", function () {
+        updateStudent();
+    });
+
+    $(document).off("click", "#stu_delete_btn").on("click", "#stu_delete_btn", function () {
+        deleteStudent();
+    });
+
+    $(document).off("click", "#stu_reset_btn").on("click", "#stu_reset_btn", function () {
+        clearFields();
+    });
+}
 
 function loadNextStudentId() {
     $.ajax({
@@ -43,12 +72,18 @@ function updateDate() {
 }
 
 function validate() {
+    if (typeof patterns === "undefined" || typeof validateForm === "undefined") {
+        console.error("validation.js NOT loaded");
+        return false;
+    }
+
     const rules = [
-        { element: $('#name'), regex: patterns.name },
-        { element: $('#address'), regex: patterns.address },
-        { element: $('#contact'), regex: patterns.contact },
-        { element: $('#email'), regex: patterns.email },
+        { element: $("#name"), regex: patterns.name },
+        { element: $("#address"), regex: patterns.address },
+        { element: $("#contact"), regex: patterns.contact },
+        { element: $("#email"), regex: patterns.email }
     ];
+
     return validateForm(rules);
 }
 
@@ -74,61 +109,32 @@ function getAllStudents() {
                 </tr>`;
                 tablebody.append(row);
             });
-
-            $('#student_table_body tr').click(function () {
-                let selectedId = $(this).find('td:eq(0)').text();
-                let selectedName = $(this).find('td:eq(1)').text();
-                let selectedAddress = $(this).find('td:eq(2)').text();
-                let selectedContact = $(this).find('td:eq(3)').text();
-                let selectedEmail = $(this).find('td:eq(4)').text();
-                let selectedDate = $(this).find('td:eq(5)').text();
-
-                $('#studentId').text(selectedId);
-                $('#name').val(selectedName);
-                $('#address').val(selectedAddress);
-                $('#contact').val(selectedContact);
-                $('#email').val(selectedEmail);
-                $('#registerDate').text(selectedDate);
-
-                clearValidation();
-            })
+            bindStudentTableEvents();
         }
-    })
+    });
 }
 
-$('#stu_save_btn').click(function () {
-    saveStudent();
-});
+function bindStudentTableEvents() {
+    $("#student_table_body").off("click").on("click", "tr", function () {
+
+        $("#studentId").text($(this).find("td:eq(0)").text());
+        $("#name").val($(this).find("td:eq(1)").text());
+        $("#address").val($(this).find("td:eq(2)").text());
+        $("#contact").val($(this).find("td:eq(3)").text());
+        $("#email").val($(this).find("td:eq(4)").text());
+        $("#registerDate").text($(this).find("td:eq(5)").text());
+
+        clearValidation();
+    });
+}
 
 function saveStudent() {
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
-
     let stuId = $('#studentId').text();
     let stuName = $('#name').val();
     let stuAddress = $('#address').val();
     let stuContact = $('#contact').val();
     let stuEmail = $('#email').val();
-    let date = $('#registerDate').val();
-
-    let student = {
-        studentId: stuId,
-        name: stuName,
-        address: stuAddress,
-        contact: stuContact,
-        email: stuEmail,
-        registerDate: date
-    }
+    let date = $('#registerDate').text();
 
     if (!stuName || !stuAddress || !stuContact || !stuEmail) {
         Swal.fire({
@@ -140,6 +146,28 @@ function saveStudent() {
             timer: 1500
         });
         return;
+    }
+
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
+
+    let student = {
+        studentId: stuId,
+        name: stuName,
+        address: stuAddress,
+        contact: stuContact,
+        email: stuEmail,
+        registerDate: date
     }
 
     $.ajax({
@@ -177,10 +205,6 @@ function saveStudent() {
     })
 }
 
-$('#stu_update_btn').click(function () {
-    updateStudent();
-})
-
 function updateStudent() {
     let stuId = $('#studentId').text();
     let stuName = $('#name').val();
@@ -202,18 +226,18 @@ function updateStudent() {
         return;
     }
 
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
 
     let student = {
         studentId: stuId,
@@ -256,10 +280,6 @@ function updateStudent() {
         }
     })
 }
-
-$('#stu_delete_btn').click(function () {
-    deleteStudent();
-})
 
 function deleteStudent() {
     let stuId = $('#studentId').text();
@@ -324,10 +344,6 @@ function deleteStudent() {
         }
     });
 }
-
-$('#stu_reset_btn').click(function () {
-    clearFields();
-})
 
 function clearFields() {
     loadNextStudentId();

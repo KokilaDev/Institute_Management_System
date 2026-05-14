@@ -1,4 +1,4 @@
-let courseID = null;
+var courseID = null;
 
 $(document).ready(function () {
     getAllCourses();

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LecturerRepository extends JpaRepository<Lecturer, String> {
 
-    @Query(value = "SELECT lecturer_id FROM lecturers ORDER BY lecturer_id DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT lecturer_id FROM lecturer ORDER BY lecturer_id DESC LIMIT 1", nativeQuery = true)
     String findLastLecturerId();
 
 }

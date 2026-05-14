@@ -1,18 +1,60 @@
 var element;
 
-$(document).ready(function(){
-    $('.nav_content a, .side_menu a').click(function(e) {
+$(document).ready(function () {
+
+    function loadPage(page) {
+        $('.main-content').load(page, function () {
+
+            // dashboard load
+            if (page.includes("admin-dashboard.html")) {
+
+                updateTotalStudents();
+                updateTotalLecturers();
+                updateTotalCourses();
+                updateTotalEnrollments();
+
+                setTimeout(() => {
+                    initDashboardCharts();
+                }, 0);
+            }
+
+            // students
+            if (page.includes("students.html")) {
+                loadStudentModule();
+            }
+
+            // lecturers
+            if (page.includes("lecturers.html")) {
+                loadLecturerModule();
+            }
+
+            // courses
+            if (page.includes("courses.html")) {
+                getAllCourses();
+                updateTotalCourses();
+            }
+
+            // enrollments
+            if (page.includes("enrollments-list.html")) {
+                getAllEnrollments();
+                updateTotalEnrollments();
+            }
+        });
+    }
+
+    // NAV CLICK
+    $('.nav_content a, .side_menu a').click(function (e) {
         e.preventDefault();
-        var page = $(this).attr('href');
-        $('.main-content').load(page);
+
+        const page = $(this).attr('href');
+        loadPage(page);
+
         $('.nav_content a, .side_menu a').removeClass('active');
         $(this).addClass('active');
-        $(".side_menu").css("right", "-120%");
-        $(".overlay").css("opacity","0");
-        $(".overlay").css("z-index","-1");
-
     });
-    $('.main-content').load('../dashboards/admin-dashboard.html');
+
+    // DEFAULT LOAD
+    loadPage('../dashboards/admin-dashboard.html');
 });
 
 if (window.matchMedia("(max-width: 920px)").matches === false) {
@@ -123,4 +165,40 @@ if(location.hash){
     $(window).trigger("hashchange");
 } else {
     location.hash = "#dashboard";
+}
+
+function initDashboardCharts() {
+
+    const studentCanvas = document.getElementById("chartStudents");
+    const revenueCanvas = document.getElementById("monthlyRevenue");
+
+    if (!studentCanvas || !revenueCanvas) {
+        console.log("Canvas not found");
+        return;
+    }
+
+    // destroy old charts
+    if (window.studentChart) window.studentChart.destroy();
+    if (window.revenueChart) window.revenueChart.destroy();
+
+    window.studentChart = new Chart(studentCanvas, {
+        type: "bar",
+        data: {
+            labels: ["Jan","Feb","Mar","Apr","May","Jun"],
+            datasets: [{
+                label: "Enrollments",
+                data: [50,75,60,80,90,100]
+            }]
+        }
+    });
+
+    window.revenueChart = new Chart(revenueCanvas, {
+        type: "pie",
+        data: {
+            labels: ["W1","W2","W3","W4"],
+            datasets: [{
+                data: [3000,1500,2000,1000]
+            }]
+        }
+    });
 }

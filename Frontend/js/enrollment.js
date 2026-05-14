@@ -71,7 +71,7 @@ $('#enroll_btn').click(function () {
     $('.main-content').load('../payments.html');
 })
 
-export function enrollCourses(enrollment) {
+function enrollCourses(enrollment) {
 
     let studentId = $('#studentId').val();
     let studentName = $('#name').val();
