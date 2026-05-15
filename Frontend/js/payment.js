@@ -1,18 +1,17 @@
-window.enrollCourses(enrollment);
 window.paymentId = window.paymentId || null;
 
-$(document).ready(function () {
+function loadPaymentModule() {
     loadPaymentData();
     getAllPayments();
-});
-
-function validate() {
-    const rules = [
-        { element: $('#studentId'), regex: patterns.studentId },
-        { element: $('#studentName'), regex: patterns.name }
-    ];
-    return validateForm(rules);
 }
+
+// function validate() {
+//     const rules = [
+//         { element: $('#studentId'), regex: patterns.studentId },
+//         { element: $('#studentName'), regex: patterns.name }
+//     ];
+//     return validateForm(rules);
+// }
 
 function loadPaymentData(){
     $('#studentId').val(sessionStorage.getItem("payStudentId"));
@@ -106,18 +105,18 @@ $('#pay_btn').click(function () {
 })
 
 function savePayment() {
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
 
     let studentId = $('#studentId').val();
     let studentName = $('#studentName').val();
@@ -166,7 +165,7 @@ function savePayment() {
                 fee: courseFee,
                 enrollDate: date
             }
-            enrollCourses(enrollment);
+            enrollCourses();
             getAllPayments();
 
             Swal.fire({
@@ -202,7 +201,7 @@ function savePayment() {
                 });
             });
 
-            clearFields();
+            clearPaymentFields();
         },
         error: function (error) {
             Swal.fire({
@@ -264,7 +263,7 @@ function printReceipt(payment) {
     newWin.print();
 }
 
-function clearFields() {
+function clearPaymentFields() {
     $('#studentId').val("");
     $('#studentName').val("");
     $('#courseName').val("");

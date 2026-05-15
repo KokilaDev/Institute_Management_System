@@ -24,36 +24,36 @@ function bindEnrollmentEvents() {
 
         clearTimeout(typingTimer);
 
-        const studentId = $(this).val();
+        const studentId = $(this).val().trim();
 
-        if (studentId.length >= 3) {
-            $('#name').val('');
-            return
-        }
+        if (!studentId) return;
 
         typingTimer = setTimeout(() => {
             console.log("calling API...");
-            loadStudentName();
+            loadStudentName(studentId);
         }, 300);
     });
 
+    $(document).on('focus', '#studentId', function () {
+        console.log("input active");
+    });
+
     $(document).off('click', '#enroll_btn').on('click', '#enroll_btn', function () {
-        enrollCourses();
         handleEnrollmentFlow();
     });
 
     $(document).off('click', '#cancel_btn').on('click', '#cancel_btn', function () {
-        clearFields();
+        clearEnrollmentFields();
     });
 }
 
-function validate() {
-    const rules = [
-        { element: $('#studentId'), regex: patterns.studentId },
-        { element: $('#name'), regex: patterns.name }
-    ];
-    return validateForm(rules);
-}
+// function validate() {
+//     const rules = [
+//         { element: $('#studentId'), regex: patterns.studentId },
+//         { element: $('#name'), regex: patterns.name }
+//     ];
+//     return validateForm(rules);
+// }
 
 function updateFields() {
     let courseName = sessionStorage.getItem('enrollCourseName');
@@ -68,33 +68,34 @@ function updateFields() {
     $('#enrollDate').text(today);
 }
 
-function loadStudentName(studentId) {
+window.loadStudentName = function(studentId) {
     if (!studentId) {
-        $('#name').val('');
+        $('#studentName').val('');
         return;
     }
+    console.log("Calling API for:", studentId);
+
     $.ajax({
         url: `http://localhost:8080/api/v1/student/${studentId}`,
         method: 'GET',
         success: function(response) {
-            console.log("success : ",response)
-            if(response && response.code === 200) {
-                $('#name').val(response.data.studentName);
-                console.log(response.data.name)
-            } else {
-                $('#name').val('');
-            }
+            const data = response?.data;
+            const name = data?.studentName || data?.name || '';
+
+            console.log("SETTING NAME:", name);
+
+            $('.main-content').find('#studentName').val(name);
         },
         error: function(err) {
-            console.error('Error fetching student:', err);
-            $('#name').val('Student Not Found');
+            console.log("ERROR:", err);
+            $('#studentName').val('Student Not Found');
         }
     });
 }
 
 function handleEnrollmentFlow() {
     let studentId = $('#studentId').val();
-    let studentName = $('#name').val();
+    let studentName = $('#studentName').val();
     let courseName = $('#courseName').val();
     let fee = $('#fee').val();
     let date = $('#enrollDate').text();
@@ -115,7 +116,7 @@ function handleEnrollmentFlow() {
 window.enrollCourses = function() {
     let enrollment = {
         studentId: $('#studentId').val(),
-        studentName: $('#name').val(),
+        studentName: $('#studentName').val(),
         courseName: $('#courseName').val(),
         fee: $('#fee').val(),
         date: $('#enrollDate').text()
@@ -140,7 +141,7 @@ window.enrollCourses = function() {
 
             getAllEnrollments();
             updateTotalEnrollments();
-            clearFields();
+            clearEnrollmentFields();
         },
         error: function (error) {
             Swal.fire({
@@ -205,7 +206,7 @@ function bindTableClick() {
             enrollmentId = $(this).find('td:eq(0)').text();
 
             $('#studentId').val($(this).find('td:eq(1)').text());
-            $('#name').val($(this).find('td:eq(2)').text());
+            $('#studentName').val($(this).find('td:eq(2)').text());
             $('#courseName').val($(this).find('td:eq(3)').text());
             $('#fee').val($(this).find('td:eq(4)').text());
             $('#enrollDate').text($(this).find('td:eq(5)').text());
@@ -214,9 +215,9 @@ function bindTableClick() {
     });
 }
 
-function clearFields() {
+function clearEnrollmentFields() {
     $('#studentId').val("");
-    $('#name').val("");
+    $('#studentName').val("");
     $('#courseName').val("");
     $('#fee').val("");
     clearValidation();

@@ -29,7 +29,7 @@ function bindCourseEvents() {
     });
 
     $(document).off('click', '#cou_reset_btn').on('click', '#cou_reset_btn', function () {
-        clearFields();
+        clearCourseFields();
     });
 
     $(document).on('click', '.enroll-btn', function() {
@@ -51,13 +51,13 @@ function bindCourseEvents() {
     });
 }
 
-function validate() {
-    const rules = [
-        { element: $('#name'), regex: patterns.name },
-        { element: $('#course_fee'), regex: patterns.fee }
-    ];
-    return validateForm(rules);
-}
+// function validate() {
+//     const rules = [
+//         { element: $('#name'), regex: patterns.name },
+//         { element: $('#course_fee'), regex: patterns.fee }
+//     ];
+//     return validateForm(rules);
+// }
 
 function loadCourseCards() {
     $.ajax({
@@ -172,12 +172,12 @@ function getAllCourses() {
 
 function bindCourseTableEvents() {
     $("#course_table_body")
-        .off("click")
+        .off("click", "tr")
         .on("click", "tr", function () {
 
             courseID = $(this).find("td:eq(0)").text();
 
-            $("#name").val($(this).find("td:eq(1)").text());
+            $("#courseName").val($(this).find("td:eq(1)").text());
             $("#description").val($(this).find("td:eq(2)").text());
             $("#duration").val($(this).find("td:eq(3)").text());
             $("#course_fee").val($(this).find("td:eq(4)").text());
@@ -203,7 +203,7 @@ function saveCourse() {
     //     return;
     // }
 
-    let couName = $('#name').val();
+    let couName = $('#courseName').val();
     let coudescription = $('#description').val();
     let couDuration = $('#duration').val();
     let couFee = $('#course_fee').val();
@@ -251,7 +251,7 @@ function saveCourse() {
             });
             getAllCourses();
             updateTotalCourses();
-            clearFields();
+            clearCourseFields();
         },
         error: function (error) {
             console.log(error)
@@ -282,7 +282,7 @@ function updateCourse() {
         return;
     }
 
-    let couName = $('#name').val();
+    let couName = $('#courseName').val();
     let coudescription = $('#description').val();
     let couDuration = $('#duration').val();
     let couFee = $('#course_fee').val();
@@ -319,7 +319,7 @@ function updateCourse() {
             });
             getAllCourses();
             updateTotalCourses();
-            clearFields();
+            clearCourseFields();
         },
         error: function (error) {
             console.log(error.responseText);
@@ -380,7 +380,7 @@ function deleteCourse(courseId) {
                     });
                     getAllCourses();
                     updateTotalCourses();
-                    clearFields();
+                    clearCourseFields();
                 },
                 error: function (error) {
                     Swal.fire({
@@ -398,8 +398,8 @@ function deleteCourse(courseId) {
     });
 }
 
-function clearFields() {
-    $('#name').val("");
+function clearCourseFields() {
+    $('#courseName').val("");
     $('#description').val("");
     $('#duration').val("");
     $('#course_fee').val("");

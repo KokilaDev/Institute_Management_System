@@ -6,11 +6,15 @@ $(document).ready(function(){
             console.log("Page loaded:", page);
 
             if (page.includes("course-preview.html")) {
-                loadCourseModule();
+                window.loadCourseModule?.();
             }
 
             if (page.includes("enrollment.html")) {
-                loadEnrollmentModule();
+                window.loadEnrollmentModule?.();
+            }
+
+            if (page.includes("payments.html")) {
+                window.loadPaymentModule?.();
             }
         });
     }
