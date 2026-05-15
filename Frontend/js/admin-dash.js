@@ -30,14 +30,18 @@ $(document).ready(function () {
 
             // courses
             if (page.includes("courses.html")) {
-                getAllCourses();
-                updateTotalCourses();
+                loadCourseModule();
             }
 
             // enrollments
             if (page.includes("enrollments-list.html")) {
                 getAllEnrollments();
                 updateTotalEnrollments();
+            }
+
+            // payments
+            if (page.includes("payment-list.html")) {
+
             }
         });
     }

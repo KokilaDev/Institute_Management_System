@@ -1,11 +1,51 @@
-let enrollmentId = null;
+window.enrollmentId = window.enrollmentId || null;
 
-$(document).ready(function() {
-    console.log($('#totalEnrollments .num').length);
+window.enrollmentModuleLoaded = false;
+
+function loadEnrollmentModule() {
+    if (window.enrollmentModuleLoaded) return;
+    window.enrollmentModuleLoaded = true;
+
+    console.log("Enrollment module loaded");
+
     updateFields();
     getAllEnrollments();
     updateTotalEnrollments();
-});
+
+    bindEnrollmentEvents();
+}
+
+function bindEnrollmentEvents() {
+    let typingTimer;
+
+    $(document).off('input', '#studentId').on('input', '#studentId', function () {
+        console.log("typing...");
+        console.log("value:", $(this).val());
+
+        clearTimeout(typingTimer);
+
+        const studentId = $(this).val();
+
+        if (studentId.length >= 3) {
+            $('#name').val('');
+            return
+        }
+
+        typingTimer = setTimeout(() => {
+            console.log("calling API...");
+            loadStudentName();
+        }, 300);
+    });
+
+    $(document).off('click', '#enroll_btn').on('click', '#enroll_btn', function () {
+        enrollCourses();
+        handleEnrollmentFlow();
+    });
+
+    $(document).off('click', '#cancel_btn').on('click', '#cancel_btn', function () {
+        clearFields();
+    });
+}
 
 function validate() {
     const rules = [
@@ -19,19 +59,14 @@ function updateFields() {
     let courseName = sessionStorage.getItem('enrollCourseName');
     let courseFee = sessionStorage.getItem('enrollCourseFee');
 
+    console.log("course data received");
+
     $('#courseName').val(courseName);
     $('#fee').val(courseFee);
 
     let today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
     $('#enrollDate').text(today);
 }
-
-$('#studentId').on('input', function() {
-    const studentId = $(this).val();
-    if(studentId.length === 15) {
-        loadStudentName(studentId);
-    }
-});
 
 function loadStudentName(studentId) {
     if (!studentId) {
@@ -42,8 +77,10 @@ function loadStudentName(studentId) {
         url: `http://localhost:8080/api/v1/student/${studentId}`,
         method: 'GET',
         success: function(response) {
+            console.log("success : ",response)
             if(response && response.code === 200) {
-                $('#name').val(response.data.name);
+                $('#name').val(response.data.studentName);
+                console.log(response.data.name)
             } else {
                 $('#name').val('');
             }
@@ -55,12 +92,14 @@ function loadStudentName(studentId) {
     });
 }
 
-$('#enroll_btn').click(function () {
+function handleEnrollmentFlow() {
     let studentId = $('#studentId').val();
     let studentName = $('#name').val();
     let courseName = $('#courseName').val();
     let fee = $('#fee').val();
     let date = $('#enrollDate').text();
+
+    console.log("enrollment data passed");
 
     sessionStorage.setItem("payStudentId", studentId);
     sessionStorage.setItem("payStudentName", studentName);
@@ -68,16 +107,19 @@ $('#enroll_btn').click(function () {
     sessionStorage.setItem("payFee", fee);
     sessionStorage.setItem("payDate", date);
 
-    $('.main-content').load('../payments.html');
-})
+    $('.main-content').load('../payments.html', function () {
+        loadPaymentModule();
+    });
+}
 
-function enrollCourses(enrollment) {
-
-    let studentId = $('#studentId').val();
-    let studentName = $('#name').val();
-    let courseName = $('#courseName').val();
-    let fee = $('#fee').val();
-    let date = $('#enrollDate').text();
+window.enrollCourses = function() {
+    let enrollment = {
+        studentId: $('#studentId').val(),
+        studentName: $('#name').val(),
+        courseName: $('#courseName').val(),
+        fee: $('#fee').val(),
+        date: $('#enrollDate').text()
+    }
 
     $.ajax({
         url: "http://localhost:8080/api/v1/enrollment/enroll",
@@ -129,10 +171,6 @@ function updateTotalEnrollments() {
     })
 }
 
-$('#cancel_btn').click(function () {
-    clearFields();
-})
-
 function getAllEnrollments() {
     $.ajax({
         url: "http://localhost:8080/api/v1/enrollment/getAll",
@@ -156,26 +194,24 @@ function getAllEnrollments() {
                 </tr>`;
                 tablebody.append(row);
             });
-
-            $('#enrollment_table_body tr').click(function () {
-                let selectedId = $(this).find('td:eq(0)').text();
-                let selectedStudentId = $(this).find('td:eq(1)').text();
-                let selectedStudentName = $(this).find('td:eq(2)').text();
-                let selectedCourseName = $(this).find('td:eq(3)').text();
-                let selectedFee = $(this).find('td:eq(4)').text();
-                let selectedDate = $(this).find('td:eq(5)').text();
-
-                enrollmentId = selectedId;
-                $('#studentId').val(selectedStudentId);
-                $('#name').val(selectedStudentName);
-                $('#courseName').val(selectedCourseName);
-                $('#fee').val(selectedFee);
-                $('#enrollDate').text(selectedDate);
-
-                clearValidation();
-            });
+            bindTableClick();
         }
     })
+}
+
+function bindTableClick() {
+    $(document).off('click', '#enrollment_table_body tr')
+        .on('click', '#enrollment_table_body tr', function () {
+            enrollmentId = $(this).find('td:eq(0)').text();
+
+            $('#studentId').val($(this).find('td:eq(1)').text());
+            $('#name').val($(this).find('td:eq(2)').text());
+            $('#courseName').val($(this).find('td:eq(3)').text());
+            $('#fee').val($(this).find('td:eq(4)').text());
+            $('#enrollDate').text($(this).find('td:eq(5)').text());
+
+        clearValidation();
+    });
 }
 
 function clearFields() {

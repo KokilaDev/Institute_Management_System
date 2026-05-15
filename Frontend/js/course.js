@@ -1,31 +1,55 @@
-var courseID = null;
+window.courseID = window.courseID || null;
 
-$(document).ready(function () {
+function loadCourseModule() {
+    if (window.courseModuleLoaded) return;
+    window.courseModuleLoaded = true;
+
+    console.log("Course module loaded");
+
     getAllCourses();
     loadAllLecturers();
     updateTotalCourses();
     loadCourseCards();
-});
 
-$(document).on('click', '.enroll-btn', function() {
-    // Get course info from data attributes
-    let courseId = $(this).data('id');
-    let courseName = $(this).data('name');
-    let courseFee = $(this).data('fee');
+    bindCourseEvents();
+    bindCourseTableEvents();
+}
 
-    // Save data temporarily in sessionStorage
-    sessionStorage.setItem('enrollCourseId', courseId);
-    sessionStorage.setItem('enrollCourseName', courseName);
-    sessionStorage.setItem('enrollCourseFee', courseFee);
-
-    // Load enrollment.html into main-content
-    $('.main-content').load('../enrollment.html', function() {
-        // After load, fill the fields automatically
-        $('#courseName').val(sessionStorage.getItem('selectedCourseName'));
-        $('#fee').val(sessionStorage.getItem('selectedCourseFee'));
-        $('#enrollDate').text(sessionStorage.getItem('enrollDate'));
+function bindCourseEvents() {
+    $(document).off('click', '#cou_save_btn').on('click', '#cou_save_btn', function () {
+        saveCourse();
     });
-});
+
+    $(document).off('click', '#cou_update_btn').on('click', '#cou_update_btn', function () {
+        updateCourse();
+    });
+
+    $(document).off('click', '#cou_delete_btn').on('click', '#cou_delete_btn', function () {
+        deleteCourse(courseID);
+    });
+
+    $(document).off('click', '#cou_reset_btn').on('click', '#cou_reset_btn', function () {
+        clearFields();
+    });
+
+    $(document).on('click', '.enroll-btn', function() {
+        let courseId = $(this).data('id');
+        let courseName = $(this).data('name');
+        let courseFee = $(this).data('fee');
+
+        console.log("course data passed");
+
+        sessionStorage.setItem('enrollCourseId', courseId);
+        sessionStorage.setItem('enrollCourseName', courseName);
+        sessionStorage.setItem('enrollCourseFee', courseFee);
+
+        $('.main-content').load('../enrollment.html', function() {
+            $('#courseName').val(sessionStorage.getItem('enrollCourseName'));
+            $('#fee').val(sessionStorage.getItem('enrollCourseFee'));
+            $('#enrollDate').text(sessionStorage.getItem('enrollDate'));
+        });
+    });
+}
 
 function validate() {
     const rules = [
@@ -141,49 +165,43 @@ function getAllCourses() {
                 </tr>`;
                 tableBody.append(row);
             });
-
-            $('#course_table_body tr').click(function () {
-                let selectedCourseId = $(this).find('td:eq(0)').text();
-                let selectedName = $(this).find('td:eq(1)').text();
-                let selectedDescription = $(this).find('td:eq(2)').text();
-                let selectedDuration = $(this).find('td:eq(3)').text();
-                let selectedFee = $(this).find('td:eq(4)').text();
-                let selectedLecturer = $(this).find('td:eq(5)').text();
-                let selectedStartDate = $(this).find('td:eq(6)').text();
-                let selectedEndDate = $(this).find('td:eq(7)').text();
-
-                courseID = selectedCourseId;
-                $('#name').val(selectedName);
-                $('#description').val(selectedDescription);
-                $('#duration').val(selectedDuration);
-                $('#course_fee').val(selectedFee);
-                $('#lecturer').val(selectedLecturer);
-                $('#start_date').val(selectedStartDate);
-                $('#end_date').val(selectedEndDate);
-
-                clearValidation();
-            })
+            bindCourseTableEvents();
         }
     })
 }
 
-$('#cou_save_btn').click(function () {
-    saveCourse();
-});
+function bindCourseTableEvents() {
+    $("#course_table_body")
+        .off("click")
+        .on("click", "tr", function () {
+
+            courseID = $(this).find("td:eq(0)").text();
+
+            $("#name").val($(this).find("td:eq(1)").text());
+            $("#description").val($(this).find("td:eq(2)").text());
+            $("#duration").val($(this).find("td:eq(3)").text());
+            $("#course_fee").val($(this).find("td:eq(4)").text());
+            $("#lecturer").val($(this).find("td:eq(5)").text());
+            $("#start_date").val($(this).find("td:eq(6)").text());
+            $("#end_date").val($(this).find("td:eq(7)").text());
+
+            clearValidation();
+        });
+}
 
 function saveCourse() {
-    if (!validate()) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Please check your input fields!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-        return;
-    }
+    // if (!validate()) {
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'warning',
+    //         title: 'Please check your input fields!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    //     return;
+    // }
 
     let couName = $('#name').val();
     let coudescription = $('#description').val();
@@ -249,10 +267,6 @@ function saveCourse() {
         }
     })
 }
-
-$('#cou_update_btn').click(function () {
-    updateCourse();
-});
 
 function updateCourse() {
     if (!courseID) {
@@ -322,10 +336,6 @@ function updateCourse() {
     })
 }
 
-$('#cou_delete_btn').click(function () {
-    deleteCourse(courseID);
-});
-
 function deleteCourse(courseId) {
     if (!courseID) {
         Swal.fire({
@@ -387,10 +397,6 @@ function deleteCourse(courseId) {
         }
     });
 }
-
-$('#cou_reset_btn').click(function () {
-    clearFields();
-});
 
 function clearFields() {
     $('#name').val("");

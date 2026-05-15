@@ -1,9 +1,7 @@
-let studentModuleLoaded = false;
-
 function loadStudentModule() {
 
-    if (studentModuleLoaded) return;
-    studentModuleLoaded = true;
+    if (window.studentModuleLoaded) return;
+    window.studentModuleLoaded = true;
 
     console.log("Student module loaded");
 

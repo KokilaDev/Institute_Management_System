@@ -1,18 +1,39 @@
 var element;
 
 $(document).ready(function(){
-    $('.nav_content a, .side_menu a').click(function(e) {
-        e.preventDefault();
-        var page = $(this).attr('href');
-        $('.main-content').load(page);
-        $('.nav_content a, .side_menu a').removeClass('active');
-        $(this).addClass('active');
-        $(".side_menu").css("right", "-120%");
-        $(".overlay").css("opacity","0");
-        $(".overlay").css("z-index","-1");
+    function loadPage(page) {
+        $(".main-content").load(page, function () {
+            console.log("Page loaded:", page);
 
+            if (page.includes("course-preview.html")) {
+                loadCourseModule();
+            }
+
+            if (page.includes("enrollment.html")) {
+                loadEnrollmentModule();
+            }
+        });
+    }
+    loadPage("../dashboards/student-dashboard.html");
+
+    $(document).on("click", ".nav_content a, .side_menu a", function (e) {
+        e.preventDefault();
+
+        var page = $(this).attr("href");
+
+        if (!page || page === "javascript:void(0)") return;
+
+        loadPage(page);
+
+        $(".nav_content a, .side_menu a").removeClass("active");
+        $(this).addClass("active");
+
+        $(".side_menu").css("right", "-120%");
+        $(".overlay").css({
+            opacity: "0",
+            "z-index": "-1"
+        });
     });
-    $('.main-content').load('../dashboards/student-dashboard.html');
 });
 
 if (window.matchMedia("(max-width: 920px)").matches === false) {

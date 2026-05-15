@@ -1,8 +1,6 @@
-let lecturerModuleLoaded = false;
-
 function loadLecturerModule() {
-    if (lecturerModuleLoaded) return;
-    lecturerModuleLoaded = true;
+    if (window.lecturerModuleLoaded) return;
+    window.lecturerModuleLoaded = true;
 
     console.log("Lecturer module loaded");
 
@@ -18,17 +16,14 @@ function loadLecturerModule() {
 function bindLecturerEvents() {
     $(document).off("click", "#lec_save_btn").on("click", "#lec_save_btn", function () {
         saveLecturer();
-        clearFields();
     });
 
     $(document).off("click", "#lec_update_btn").on("click", "#lec_update_btn", function () {
         updateLecturer();
-        clearFields();
     });
 
     $(document).off("click", "#lec_delete_btn").on("click", "#lec_delete_btn", function () {
         deleteLecturer();
-        clearFields();
     });
 
     $(document).off("click", "#lec_reset_btn").on("click", "#lec_reset_btn", function () {
@@ -190,7 +185,7 @@ function saveLecturer() {
                 timer: 1500,
                 timerProgressBar: true
             });
-            clearFields();
+            resetLecturerForm();
             getAllLecturers();
             updateTotalLecturers();
         },
@@ -267,8 +262,8 @@ function updateLecturer() {
                 timer: 1500,
                 timerProgressBar: true
             });
+            resetLecturerForm();
             getAllLecturers();
-            clearFields();
         },
         error: function (error) {
             Swal.fire({
@@ -328,8 +323,8 @@ function deleteLecturer() {
                         timer: 1500,
                         timerProgressBar: true
                     });
+                    resetLecturerForm();
                     getAllLecturers();
-                    clearFields();
                 },
                 error: function (error) {
                     Swal.fire({
@@ -347,6 +342,12 @@ function deleteLecturer() {
     });
 }
 
+function resetLecturerForm() {
+    clearFields();
+    loadNextLecturerId();
+    updateDate();
+}
+
 function clearFields() {
     console.log("clearFields called");
 
@@ -354,13 +355,11 @@ function clearFields() {
     $('#specialization').val("");
     $('#contact').val("");
     $('#email').val("");
+
     $('#lecturerId').text("");
     $('#registerDate').text("");
 
-    if (typeof clearValidation === "function") {
-        clearValidation();
-    }
-
-    loadNextLecturerId();
-    updateDate();
+    // if (typeof clearValidation === "function") {
+    //     clearValidation();
+    // }
 }

@@ -5,8 +5,27 @@ $(document).ready(function(){
         $(".main-content").load(page, function () {
             console.log("Page loaded:", page);
 
-            if (page.includes("students")) {
+            window.studentModuleLoaded = window.studentModuleLoaded || false;
+            window.courseModuleLoaded = window.courseModuleLoaded || false;
+
+            if (page.includes("students.html")) {
                 loadStudentModule();
+            }
+
+            if (page.includes("course-list.html")) {
+                loadCourseModule();
+            }
+
+            if (page.includes("lecturers-list.html")) {
+                loadLecturerModule();
+            }
+
+            if (page.includes("enrollments-list.html")) {
+                getAllEnrollments();
+            }
+
+            if (page.includes("payment-list.html")) {
+
             }
         });
     }

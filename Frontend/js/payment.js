@@ -1,6 +1,5 @@
-import { enrollCourses } from './enrollment.js';
-
-let paymentId = null;
+window.enrollCourses(enrollment);
+window.paymentId = window.paymentId || null;
 
 $(document).ready(function () {
     loadPaymentData();
